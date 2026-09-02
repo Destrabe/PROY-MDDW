@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Header() {
   return (
@@ -7,15 +6,8 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="shrink-0 flex items-center">
-            <Link href="/">
-              <Image
-                src="/logo.png"
-                alt="Logo"
-                width={120}
-                height={40}
-                className="w-auto h-10 object-contain"
-                priority
-              />
+            <Link href="/" className="text-white text-xl font-instrument">
+              LIMA BASICS
             </Link>
           </div>
           <nav className="hidden md:flex space-x-8">
