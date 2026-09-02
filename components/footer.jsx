@@ -95,7 +95,7 @@ export default function Footer() {
                   <svg className="w-6 h-6 text-[#d93a64]" fill="currentColor">
                     <use href="/sprite.svg#clock" />
                   </svg>
-                 <span>Lun-Vie 9:00–18:00</span>
+                 <span>Lun-Vie 9:00–19:00</span>
                 </li>
                 
               </ul>
