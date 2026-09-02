@@ -18,9 +18,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body className={`${instrument.variable}`}>
-        <Header />
-        {children}
-        <Footer />
+        <div className="grid grid-rows-[auto_1fr_auto] min-h-dvh ">
+          <Header />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );

@@ -49,7 +49,7 @@ export default function Header() {
               </svg>
             </button>
 
-            <button className="hover:text-black transition-colors focus:outline-none">
+            <button className="hover:text-white transition-colors focus:outline-none">
               <svg className="w-6 h-6" fill="currentColor">
                 <use href="/sprite.svg#user" />
               </svg>
