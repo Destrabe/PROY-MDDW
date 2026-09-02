@@ -46,12 +46,13 @@ export default function Header() {
                 <use href="/sprite.svg#cart" />
               </svg>
             </button>
-
-            <button className="hover:text-white transition-colors focus:outline-none">
-              <svg className="w-6 h-6" fill="currentColor">
-                <use href="/sprite.svg#user" />
-              </svg>
-            </button>
+            <Link href="/login">
+              <button className="hover:text-white transition-colors focus:outline-none">
+                <svg className="w-6 h-6" fill="currentColor">
+                  <use href="/sprite.svg#user" />
+                </svg>
+              </button>
+            </Link>
           </div>
         </div>
       </div>
