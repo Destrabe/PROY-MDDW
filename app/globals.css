@@ -6,3 +6,7 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
+
+@theme {
+  --font-instrument: var(--font-instrument);
+}
