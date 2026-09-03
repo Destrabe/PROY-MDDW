@@ -5,7 +5,7 @@ import Link from 'next/link';
 const ProductCard = ({ product }) => {
   return (
     <div className="group flex flex-col gap-3">
-      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-md bg-gray-100">
+      <div className="relative aspect-3/4 w-full overflow-hidden rounded-md bg-gray-100">
         {product.badge && (
           <div className="absolute top-3 left-3 z-10 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white bg-emerald-600">
             {product.badge}
@@ -97,7 +97,7 @@ export default function OfertasPage() {
           backgroundSize: '4rem 4rem',
         }}
       >
-        <div className="w-full max-w-[1440px] mx-auto relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+        <div className="w-full max-w-360uto relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-10">
           
           <div>
             <div className="text-slate-500 text-sm mb-12">
@@ -144,8 +144,8 @@ export default function OfertasPage() {
       </div>
 
       {/* 3. GRILLA DE PRODUCTOS EN OFERTA */}
-      <section className="w-full py-16 px-6 lg:px-12 flex-grow">
-        <div className="w-full max-w-[1440px] mx-auto">
+      <section className="w-full py-16 px-6 lg:px-12 grow">
+        <div className="w-full max-w-360 mx-auto">
           
           <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-10 gap-4">
             <p className="text-slate-600 text-lg">
