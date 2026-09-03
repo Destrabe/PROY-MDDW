@@ -17,7 +17,6 @@ export default function Header() {
     <header className="bg-white border-b border-gray-100 sticky top-0 z-50 w-full">
       <div className="w-full px-6">
         <div className="flex justify-between items-center h-14">
-          {/* Grupo Izquierdo: Logo + Navegación */}
           <div className="flex items-center space-x-12">
             <Link
               href="/"
