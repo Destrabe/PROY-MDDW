@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import HamburgerMenu from "./hamburgerMenu";
 
 export default function Header() {
   const pathname = usePathname();
@@ -13,6 +14,7 @@ export default function Header() {
     { name: "Sobre Nosotros", href: "/about" },
     { name: "Contacto", href: "/contact" },
   ];
+
   return (
     <header className="bg-white border-b border-gray-100 sticky top-0 z-50 w-full">
       <div className="w-full px-6">
@@ -43,7 +45,7 @@ export default function Header() {
               })}
             </nav>
           </div>
-          <div className="hidden md:flex items-center space-x-6 text-[#7A7F9A]">
+          <div className="flex items-center gap-6 text-[#7A7F9A]">
             <Link
               href="#"
               className="flex items-center justify-center hover:text-black transition-colors focus:outline-none"
@@ -62,12 +64,18 @@ export default function Header() {
             </Link>
             <Link
               href="#"
-              className="flex items-center justify-center hover:text-black transition-colors focus:outline-none"
+              className="hidden md:flex items-center justify-center hover:text-black transition-colors focus:outline-none"
             >
               <svg className="w-5 h-5" fill="currentColor">
                 <use href="/sprite.svg#user" />
               </svg>
             </Link>
+
+            <button className="flex md:hidden items-center justify-center hover:text-black transition-colors focus:outline-none p-0 m-0 border-none bg-transparent">
+              <div className="w-5 h-5">
+                <HamburgerMenu />
+              </div>
+            </button>
           </div>
         </div>
       </div>
