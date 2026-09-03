@@ -2,7 +2,7 @@ import React from "react";
 
 export default function AboutPage() {
   return (
-    <div className="flex col min-h-screen w-full font-sans">
+    <div className="flex flex-col min-h-screen w-full font-sans">
       <section
         className="relative bg-[#0B101B] w-full pt-16 pb-32 px-6 lg:px-12 border-b border-slate-800"
         style={{
@@ -21,7 +21,6 @@ export default function AboutPage() {
             <span className="mx-2">›</span>
             <span className="text-slate-400">Sobre Nosotros</span>
           </div>
-
           <div className="max-w-3xl">
             <span className="text-blue-600 text-xs font-bold tracking-[0.2em] uppercase mb-6 block">
               LIMA, PERÚ · EST. 2021
@@ -293,7 +292,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-      <section className="w-full bg-[#0B101B] py-32 px-6 flex col items-center justify-center text-center grow">
+      <section className="w-full bg-[#0B101B] py-32 px-6 flex flex-col items-center justify-center text-center grow">
         <span className="text-blue-600 text-[11px] font-bold tracking-[0.2em] uppercase mb-4 block">
           ¿LISTO?
         </span>
