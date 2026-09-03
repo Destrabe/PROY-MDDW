@@ -43,20 +43,29 @@ export default function Header() {
             </Link>
           </nav>
           <div className="hidden md:flex items-center space-x-5 text-[#7A7F9A]">
-            <button className="hover:text-black transition-colors focus:outline-none">
-              xd
-            </button>
-            <button className="hover:text-black transition-colors focus:outline-none">
+            <Link
+              href="#"
+              className="flex items-center justify-center hover:text-black transition-colors focus:outline-none"
+            >
+              <svg className="w-6 h-6" fill="currentColor">
+                <use href="/sprite.svg#search" />
+              </svg>
+            </Link>
+            <Link
+              href="#"
+              className="flex items-center justify-center hover:text-black transition-colors focus:outline-none"
+            >
               <svg className="w-6 h-6" fill="currentColor">
                 <use href="/sprite.svg#cart" />
               </svg>
-            </button>
-            <Link href="/login">
-              <button className="hover:text-black transition-colors focus:outline-none">
-                <svg className="w-6 h-6" fill="currentColor">
-                  <use href="/sprite.svg#user" />
-                </svg>
-              </button>
+            </Link>
+            <Link
+              href="#"
+              className="flex items-center justify-center hover:text-black transition-colors focus:outline-none"
+            >
+              <svg className="w-6 h-6" fill="currentColor">
+                <use href="/sprite.svg#user" />
+              </svg>
             </Link>
           </div>
         </div>
