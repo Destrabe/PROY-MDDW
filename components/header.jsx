@@ -3,11 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import HamburgerMenu from "./hamburgerMenu";
+import LoginModal from "./loginModal";
+import RegisterModal from "./registerModal";
 
 export default function Header() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
 
   const navLinks = [
     { name: "Inicio", href: "/" },
@@ -16,6 +18,15 @@ export default function Header() {
     { name: "Sobre Nosotros", href: "/about" },
     { name: "Contacto", href: "/contact" },
   ];
+
+  const handleOpenLogin = () => {
+    setActiveModal("login");
+    setIsMobileMenuOpen(false);
+  };
+
+  const closeModal = () => {
+    setActiveModal(null);
+  };
 
   return (
     <>
@@ -54,7 +65,7 @@ export default function Header() {
                 href="#"
                 className="flex items-center justify-center hover:text-black transition-colors focus:outline-none"
               >
-                <svg className="w-5 h-5" fill="currentColor">
+                <svg className="w-5 h-5">
                   <use href="/sprite.svg#search" />
                 </svg>
               </Link>
@@ -62,40 +73,30 @@ export default function Header() {
                 href="#"
                 className="flex items-center justify-center hover:text-black transition-colors focus:outline-none"
               >
-                <svg className="w-5 h-5" fill="currentColor">
+                <svg className="w-5 h-5">
                   <use href="/sprite.svg#cart" />
                 </svg>
               </Link>
-              <Link
-                href="#"
-                className="hidden md:flex items-center justify-center hover:text-black transition-colors focus:outline-none"
+              <button
+                onClick={handleOpenLogin}
+                className="hidden md:flex items-center justify-center hover:text-black transition-colors focus:outline-none p-0 m-0 border-none bg-transparent"
               >
-                <svg className="w-5 h-5" fill="currentColor">
+                <svg className="w-5 h-5">
                   <use href="/sprite.svg#user" />
                 </svg>
-              </Link>
+              </button>
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="flex md:hidden items-center justify-center hover:text-black transition-colors focus:outline-none p-0 m-0 border-none bg-transparent"
+                className="flex md:hidden items-center justify-center text-black hover:text-[#7A7F9A] transition-colors focus:outline-none p-0 m-0 border-none bg-transparent"
               >
                 {isMobileMenuOpen ? (
-                  <svg
-                    className="w-5 h-5 text-black"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
+                  <svg className="w-5 h-5">
+                    <use href="/sprite.svg#close" />
                   </svg>
                 ) : (
-                  <div className="w-5 h-5">
-                    <HamburgerMenu />
-                  </div>
+                  <svg className="w-5 h-5">
+                    <use href="/sprite.svg#menu" />
+                  </svg>
                 )}
               </button>
             </div>
@@ -115,17 +116,28 @@ export default function Header() {
                 </Link>
               ))}
               <div className="w-full h-px bg-gray-100 shrink-0 my-1"></div>
-              <Link
-                href="#"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex flex-1 items-center text-sm text-[#4a4d5e] hover:text-black transition-colors"
+              <button
+                onClick={handleOpenLogin}
+                className="flex flex-1 items-center text-left text-sm text-[#4a4d5e] hover:text-black transition-colors bg-transparent border-none p-0 m-0"
               >
                 Iniciar sesión / Registrarse
-              </Link>
+              </button>
             </nav>
           </div>
         )}
       </header>
+      {activeModal === "login" && (
+        <LoginModal
+          onClose={closeModal}
+          onSwitchToRegister={() => setActiveModal("register")}
+        />
+      )}
+      {activeModal === "register" && (
+        <RegisterModal
+          onClose={closeModal}
+          onSwitchToLogin={() => setActiveModal("login")}
+        />
+      )}
     </>
   );
 }

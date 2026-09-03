@@ -202,7 +202,7 @@ export default function ContactoPage() {
                 Enviar Mensaje
               </button>
               <p className="text-center text-xs text-slate-400 leading-relaxed px-4">
-                Al enviar aceptas nuestra{" "}
+                Al enviar aceptas nuestra
                 <a href="#" className="underline hover:text-slate-600">
                   Política de privacidad
                 </a>
