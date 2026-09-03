@@ -58,7 +58,7 @@ export default function Header() {
               className="flex items-center justify-center hover:text-black transition-colors focus:outline-none"
             >
               <svg className="w-5 h-5" fill="currentColor">
-                <use href="/sprite.svg#user" />
+                <use href="/sprite.svg#cart" />
               </svg>
             </Link>
             <Link
@@ -66,7 +66,7 @@ export default function Header() {
               className="flex items-center justify-center hover:text-black transition-colors focus:outline-none"
             >
               <svg className="w-5 h-5" fill="currentColor">
-                <use href="/sprite.svg#cart" />
+                <use href="/sprite.svg#user" />
               </svg>
             </Link>
           </div>
