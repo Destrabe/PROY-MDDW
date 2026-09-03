@@ -18,22 +18,28 @@ export default function Header() {
               Inicio
             </Link>
             <Link
-              href="/page01"
+              href="/catalog"
               className="text-[#7A7F9A] hover:text-black px-3 py-2 rounded-md text-sm font-medium transition-colors"
             >
-              page01
+              Catálogo
+            </Link>
+            <Link
+              href="/offers"
+              className="text-[#7A7F9A] hover:text-black px-3 py-2 rounded-md text-sm font-medium transition-colors"
+            >
+              Ofertas
+            </Link>
+            <Link
+              href="/about"
+              className="text-[#7A7F9A] hover:text-black px-3 py-2 rounded-md text-sm font-medium transition-colors"
+            >
+              Sobre Nosotros
             </Link>
             <Link
               href="/contact"
               className="text-[#7A7F9A] hover:text-black px-3 py-2 rounded-md text-sm font-medium transition-colors"
             >
               Contacto
-            </Link>
-            <Link
-              href="/page03"
-              className="text-[#7A7F9A] hover:text-black px-3 py-2 rounded-md text-sm font-medium transition-colors"
-            >
-              page03
             </Link>
           </nav>
           <div className="hidden md:flex items-center space-x-5 text-[#7A7F9A]">
