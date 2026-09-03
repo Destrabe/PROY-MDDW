@@ -22,7 +22,6 @@ export default function AboutPage() {
             <span className="mx-2">›</span>
             <span className="text-slate-400">Sobre Nosotros</span>
           </div>
-
           <div className="max-w-3xl">
             <span className="text-blue-600 text-xs font-bold tracking-[0.2em] uppercase mb-6 block">
               LIMA, PERÚ · EST. 2021
