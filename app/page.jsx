@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen w-full font-sans">
-      <section className="relative w-full h-[90vh] min-h-150 flex flex-col justify-between pt-24 pb-12 px-6 lg:px-12 bg-black">
+      <section className="relative w-full h-[calc(100vh-56px)] flex flex-col justify-between py-8 md:py-12 px-6 lg:px-12 bg-black overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
           style={{
@@ -14,22 +14,21 @@ export default function HomePage() {
         />
         <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-[#1a1511]/90" />
         <div className="relative z-10 max-w-360 mx-auto w-full grow flex flex-col justify-center">
-          <div className="flex items-center gap-4 mb-6">
+          <div className="flex items-center gap-4 mb-4 md:mb-6">
             <div className="w-8 h-px bg-blue-600"></div>
             <span className="text-blue-600 text-xs font-bold tracking-[0.3em] uppercase">
               Lima · Perú · 2024
             </span>
           </div>
-
-          <h1 className="text-7xl md:text-9xl font-bold text-white tracking-tighter leading-[0.85] mb-10">
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold text-white tracking-tighter leading-[0.85] mb-6 md:mb-10">
             LO <br />
             <span className="text-blue-600">BÁSICO,</span> <br />
             ELEVADO.
           </h1>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6">
             <Link
               href="/catalog"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded font-bold text-sm tracking-wide transition-colors flex items-center gap-2"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 md:px-8 py-3 md:py-4 rounded font-bold text-sm tracking-wide transition-colors flex items-center gap-2"
             >
               EXPLORAR COLECCIÓN
               <svg
@@ -46,24 +45,36 @@ export default function HomePage() {
                 ></path>
               </svg>
             </Link>
-            <p className="text-gray-300 text-sm max-w-xs leading-relaxed">
+            <p className="text-gray-300 text-xs md:text-sm max-w-xs leading-relaxed hidden sm:block">
               Algodón pima peruano · Diseño contemporáneo · Hecho para Lima
             </p>
           </div>
         </div>
-        <div className="relative z-10 max-w-360 mx-auto w-full mt-16">
-          <div className="border-t border-white/20 pt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="relative z-10 max-w-360 mx-auto w-full mt-4 md:mt-8">
+          <div className="border-t border-white/20 pt-6 grid grid-cols-3 gap-4 md:gap-8">
             <div>
-              <p className="text-3xl font-bold text-white mb-1">100%</p>
-              <p className="text-gray-400 text-sm">Algodón pima peruano</p>
+              <p className="text-xl md:text-3xl font-bold text-white mb-1">
+                100%
+              </p>
+              <p className="text-gray-400 text-xs md:text-sm">
+                Algodón pima peruano
+              </p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-white mb-1">+500</p>
-              <p className="text-gray-400 text-sm">Clientes en Lima</p>
+              <p className="text-xl md:text-3xl font-bold text-white mb-1">
+                +500
+              </p>
+              <p className="text-gray-400 text-xs md:text-sm">
+                Clientes en Lima
+              </p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-white mb-1">48h</p>
-              <p className="text-gray-400 text-sm">Entrega express</p>
+              <p className="text-xl md:text-3xl font-bold text-white mb-1">
+                48h
+              </p>
+              <p className="text-gray-400 text-xs md:text-sm">
+                Entrega express
+              </p>
             </div>
           </div>
         </div>
