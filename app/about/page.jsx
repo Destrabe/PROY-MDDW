@@ -15,7 +15,7 @@ export default function AboutPage() {
           backgroundSize: '4rem 4rem',
         }}
       >
-        <div className="max-w-[1440px] mx-auto relative z-10">
+        <div className="max-w-360 mx-auto relative z-10">
           {/* Breadcrumb */}
           <div className="text-slate-500 text-sm mb-16">
             <a href="/" className="hover:text-white transition-colors">Inicio</a>
@@ -40,7 +40,7 @@ export default function AboutPage() {
 
       {/* 2. NUESTRA HISTORIA */}
       <section className="w-full bg-slate-50 py-24 px-6 lg:px-12">
-        <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <div className="max-w-360 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           
           {/* Columna Izquierda: Texto */}
           <div>
@@ -92,7 +92,7 @@ export default function AboutPage() {
 
       {/* 3. VALORES (LO QUE NOS MUEVE) */}
       <section className="w-full bg-slate-100/50 py-24 px-6 lg:px-12 border-t border-slate-200">
-        <div className="max-w-[1440px] mx-auto">
+        <div className="max-w-360uto">
           <h3 className="text-[11px] font-bold text-slate-400 tracking-widest uppercase mb-12">
             LO QUE NOS MUEVE
           </h3>
@@ -171,7 +171,7 @@ export default function AboutPage() {
 
       {/* 4. EQUIPO */}
       <section className="w-full bg-white py-24 px-6 lg:px-12 border-t border-slate-200">
-        <div className="max-w-[1440px] mx-auto">
+        <div className="max-w-360 mx-auto">
           <h3 className="text-[11px] font-bold text-slate-400 tracking-widest uppercase mb-12">
             EL EQUIPO
           </h3>
@@ -179,7 +179,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             
             <div className="flex items-center gap-5">
-              <div className="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+              <div className="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xl shrink-0">
                 MQ
               </div>
               <div>
@@ -189,7 +189,7 @@ export default function AboutPage() {
             </div>
 
             <div className="flex items-center gap-5">
-              <div className="w-16 h-16 rounded-full bg-emerald-700 flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+              <div className="w-16 h-16 rounded-full bg-emerald-700 flex items-center justify-center text-white font-bold text-xl shrink-0">
                 SH
               </div>
               <div>
@@ -199,7 +199,7 @@ export default function AboutPage() {
             </div>
 
             <div className="flex items-center gap-5">
-              <div className="w-16 h-16 rounded-full bg-slate-500 flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+              <div className="w-16 h-16 rounded-full bg-slate-500 flex items-center justify-center text-white font-bold text-xl shrink-0">
                 DV
               </div>
               <div>
@@ -213,7 +213,7 @@ export default function AboutPage() {
       </section>
 
       {/* 5. CALL TO ACTION FINAL */}
-      <section className="w-full bg-[#0B101B] py-32 px-6 flex flex-col items-center justify-center text-center flex-grow">
+      <section className="w-full bg-[#0B101B] py-32 px-6 flex flex-col items-center justify-center text-center grow">
         <span className="text-blue-600 text-[11px] font-bold tracking-[0.2em] uppercase mb-4 block">
           ¿LISTO?
         </span>
