@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="w-full font-sans relative mt-10">
+    <footer className="w-full font-sans relative">
       <div className="bg-[#0f0f0f] w-full text-gray-400">
         <div className="w-full max-w-360 mx-auto px-6 lg:px-12 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
