@@ -221,7 +221,7 @@ export default function AboutPage() {
           Conoce la colección.
         </h2>
         <a 
-          href="/catalogo" 
+          href="/catalog" 
           className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-md font-semibold text-sm tracking-wide transition-colors flex items-center gap-2"
         >
           VER CATÁLOGO 

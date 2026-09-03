@@ -32,7 +32,7 @@ export default function HomePage() {
           
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
             <Link 
-              href="/catalogo" 
+              href="/catalog" 
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded font-bold text-sm tracking-wide transition-colors flex items-center gap-2"
             >
               EXPLORAR COLECCIÓN 
@@ -84,7 +84,7 @@ export default function HomePage() {
               Cada pieza está confeccionada con algodón pima peruano de primera calidad, diseñada para durar y adaptarse a los distintos momentos del día limeño.
             </p>
             <div className="pt-4">
-              <Link href="/catalogo" className="inline-flex items-center gap-2 text-slate-900 font-bold border-b-2 border-slate-900 pb-1 hover:text-blue-600 hover:border-blue-600 transition-colors">
+              <Link href="/catalog" className="inline-flex items-center gap-2 text-slate-900 font-bold border-b-2 border-slate-900 pb-1 hover:text-blue-600 hover:border-blue-600 transition-colors">
                 Ver el catálogo completo
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
               </Link>
@@ -193,16 +193,16 @@ export default function HomePage() {
           </div>
           <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
             <Link 
-              href="/catalogo" 
+              href="/catalog" 
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded font-bold text-sm tracking-wide transition-colors text-center"
             >
               IR AL CATÁLOGO
             </Link>
             <Link 
-              href="/novedades" 
+              href="/offers" 
               className="bg-transparent border border-white/20 hover:border-white hover:bg-white/5 text-white px-8 py-4 rounded font-bold text-sm tracking-wide transition-all text-center"
             >
-              VER NOVEDADES
+              VER OFERTAS
             </Link>
           </div>
         </div>
