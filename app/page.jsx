@@ -26,7 +26,6 @@ export default function HomePage() {
             <span className="text-blue-600">BÁSICO,</span> <br />
             ELEVADO.
           </h1>
-
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
             <Link
               href="/catalog"
