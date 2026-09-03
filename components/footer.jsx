@@ -23,12 +23,8 @@ export default function Footer() {
                 </h4>
                 {/* Botón PayPal Simulado */}
                 <div className="bg-[#003087] w-fit rounded flex items-center justify-center px-4 py-2.5 mb-2">
-                  <svg
-                    className="w-4 h-4 text-white mr-1.5"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zM8.215 13H11.23c3.275 0 5.863-1.464 6.643-5.467.045-.23.082-.464.113-.701.196-1.5-.04-2.434-.694-3.178-.58-.663-1.636-1-3.21-1H7.834L5.617 13h2.598z" />
+                  <svg className="w-5 h-5">
+                    <use href="/sprite.svg#paypal" />
                   </svg>
                   <span className="text-white font-bold italic text-sm tracking-wide">
                     PayPal
