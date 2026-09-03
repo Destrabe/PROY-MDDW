@@ -43,7 +43,6 @@ export default function Header() {
               })}
             </nav>
           </div>
-
           <div className="hidden md:flex items-center space-x-6 text-[#7A7F9A]">
             <Link
               href="#"
