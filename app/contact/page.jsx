@@ -6,7 +6,7 @@ export default function ContactoPage() {
       
       {/* 1. HERO OSCURO (Azul Marino Profundo) */}
       <section className="bg-[#0B101B] w-full pt-16 pb-24 px-6 lg:px-12">
-        <div className="max-w-[1440px] mx-auto">
+        <div className="max-w-360 mx-auto">
           {/* Breadcrumb */}
           <div className="text-slate-500 text-sm mb-12">
             <a href="#" className="hover:text-white transition-colors">Inicio</a>
@@ -30,7 +30,7 @@ export default function ContactoPage() {
 
       {/* 2. SECCIÓN PRINCIPAL: INFO + FORMULARIO */}
       <section className="w-full bg-white py-20 px-6 lg:px-12">
-        <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+        <div className="max-w-360uto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
           
           {/* Columna Izquierda: Información */}
           <div className="lg:col-span-5">
@@ -42,7 +42,7 @@ export default function ContactoPage() {
               {/* Tienda Física */}
               <div className="flex items-start gap-5">
                 {/* Ícono con fondo celeste claro y azul royal */}
-                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 text-blue-600">
+                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 text-blue-600">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor"><use href="/sprite.svg#location" /></svg>
                 </div>
                 <div>
@@ -53,7 +53,7 @@ export default function ContactoPage() {
 
               {/* Teléfono */}
               <div className="flex items-start gap-5">
-                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 text-blue-600">
+                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0-blue-600">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor"><use href="/sprite.svg#phone" /></svg>
                 </div>
                 <div>
@@ -64,7 +64,7 @@ export default function ContactoPage() {
 
               {/* Correo */}
               <div className="flex items-start gap-5">
-                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 text-blue-600">
+                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 text-blue-600">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor"><use href="/sprite.svg#mail" /></svg>
                 </div>
                 <div>
@@ -75,7 +75,7 @@ export default function ContactoPage() {
 
               {/* Horario */}
               <div className="flex items-start gap-5">
-                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 text-blue-600">
+                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0-blue-600">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor"><use href="/sprite.svg#clock" /></svg>
                 </div>
                 <div>
@@ -175,8 +175,8 @@ export default function ContactoPage() {
       </section>
 
       {/* 3. PREGUNTAS FRECUENTES (Fondo azul/gris extra claro) */}
-      <section className="w-full bg-slate-50 py-20 px-6 lg:px-12 border-t border-slate-100 flex-grow">
-        <div className="max-w-[1440px] mx-auto">
+      <section className="w-full bg-slate-50 py-20 px-6 lg:px-12 border-t border-slate-100 grow">
+        <div className="max-w-360 mx-auto">
           <h3 className="text-xs font-semibold text-slate-400 tracking-widest uppercase mb-10">
             Preguntas Frecuentes
           </h3>
