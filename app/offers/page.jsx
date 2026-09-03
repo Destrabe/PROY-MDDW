@@ -64,7 +64,7 @@ export default function OfertasPage() {
       badge: "NUEVO",
       colors: ["#ffffff", "#000000", "#d8c8b8"],
       image:
-        "https://images.unsplash.com/photo-1529139574466-a303027c028b?q=80&w=600&auto=format&fit=crop",
+        "https://tse3.mm.bing.net/th/id/OIP.LC3EFXiwgCv46_D8trQJRgHaIz?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
     },
     {
       id: 6,
@@ -75,7 +75,7 @@ export default function OfertasPage() {
       badge: "NUEVO",
       colors: ["#1a1a1a", "#4a5d23", "#2c3e50"],
       image:
-        "https://images.unsplash.com/photo-1520975954732-57dd22299614?q=80&w=600&auto=format&fit=crop",
+        "https://static.pullandbear.net/2/photos/2024/I/0/1/p/3710/338/800/3710338800_4_1_8.jpg?t=1724683214185",
     },
   ];
 

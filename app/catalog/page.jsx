@@ -76,7 +76,7 @@ export default function CatalogoPage() {
       badge: "NUEVO",
       colors: ["#ffffff", "#000000", "#d8c8b8"],
       image:
-        "https://images.unsplash.com/photo-1529139574466-a303027c028b?q=80&w=600&auto=format&fit=crop",
+        "https://media.sivasdescalzo.com/media/catalog/product/F/O/FOHSS24PP02-224_sivasdescalzo-Front_of_House_-POLO_PIQUE_OVERSIZE-1715879550-1.jpg?width=1920&q=72&optimize=high&format=auto",
     },
     {
       id: 2,
@@ -127,7 +127,7 @@ export default function CatalogoPage() {
       badge: "NUEVO",
       colors: ["#1a1a1a", "#4a5d23", "#2c3e50"],
       image:
-        "https://images.unsplash.com/photo-1520975954732-57dd22299614?q=80&w=600&auto=format&fit=crop",
+        "https://tse1.mm.bing.net/th/id/OIP.zulJCuOIN5Map0EHJ5AjQgHaLH?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
     },
   ];
   return (

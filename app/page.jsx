@@ -15,9 +15,9 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-[#1a1511]/90" />
         <div className="relative z-10 max-w-360 mx-auto w-full grow flex flex-col justify-center">
           <div className="flex items-center gap-4 mb-4 md:mb-6">
-            <div className="w-8 h-px bg-blue-600"></div>
-            <span className="text-blue-600 text-xs font-bold tracking-[0.3em] uppercase">
-              Lima · Perú · 2024
+            <div className="w-8 h-px bg-white"></div>
+            <span className="text-white text-xs font-bold tracking-[0.3em] uppercase">
+              Lima · Perú · 2026
             </span>
           </div>
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold text-white tracking-tighter leading-[0.85] mb-6 md:mb-10">
@@ -129,14 +129,14 @@ export default function HomePage() {
       <section className="w-full bg-slate-50 py-24 px-6 lg:px-12">
         <div className="max-w-360 mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           <Link
-            href="/categoria/esenciales"
+            href="/catalog"
             className="group relative h-125 rounded-lg overflow-hidden bg-slate-900 block"
           >
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
               style={{
                 backgroundImage:
-                  "url('https://images.unsplash.com/photo-1529139574466-a303027c028b?q=80&w=800&auto=format&fit=crop')",
+                  "url('https://image.made-in-china.com/2f0j00AUFbPzVJwZoe/Wholesale-Custom-No-String-Hoodies-Blank-Various-Colored-100-Cotton-Men-Hoodie-Sweatshirts-Streetwear-Oversized-Cotton-Heavyweight-Plain-Hoody.webp')",
               }}
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
@@ -248,28 +248,44 @@ export default function HomePage() {
       <section className="w-full bg-slate-50 py-16 px-6 lg:px-12 border-t border-slate-200">
         <div className="max-w-360 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
-            <span className="text-2xl block mb-4">🌿</span>
+            <span className="text-2xl block mb-4">
+              <svg className="w-8 h-8">
+                <use href="/sprite.svg#leaf" />
+              </svg>
+            </span>
             <h4 className="font-bold text-slate-900 mb-2">Pima peruano</h4>
             <p className="text-sm text-slate-500 leading-relaxed">
               Algodón de origen controlado, suave y duradero.
             </p>
           </div>
           <div>
-            <span className="text-2xl block mb-4">📦</span>
+            <span className="text-2xl block mb-4">
+              <svg className="w-9 h-9">
+                <use href="/sprite.svg#box" />
+              </svg>
+            </span>
             <h4 className="font-bold text-slate-900 mb-2">Envío express</h4>
             <p className="text-sm text-slate-500 leading-relaxed">
               Entrega en 2–4 horas dentro de Lima metropolitana.
             </p>
           </div>
           <div>
-            <span className="text-2xl block mb-4">🔄</span>
+            <span className="text-2xl block mb-4">
+              <svg className="w-6 h-6">
+                <use href="/sprite.svg#exchange" />
+              </svg>
+            </span>
             <h4 className="font-bold text-slate-900 mb-2">Cambios gratis</h4>
             <p className="text-sm text-slate-500 leading-relaxed">
               Sin costo adicional durante 30 días desde tu compra.
             </p>
           </div>
           <div>
-            <span className="text-2xl block mb-4">🔒</span>
+            <span className="text-2xl block mb-4">
+              <svg className="w-9 h-9">
+                <use href="/sprite.svg#lock" />
+              </svg>
+            </span>
             <h4 className="font-bold text-slate-900 mb-2">Pago seguro</h4>
             <p className="text-sm text-slate-500 leading-relaxed">
               Transacciones protegidas vía PayPal.
@@ -284,7 +300,7 @@ export default function HomePage() {
               NUEVA TEMPORADA
             </span>
             <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tight leading-tight">
-              Invierno 2024 <br /> ya disponible.
+              Invierno 2026 <br /> ya disponible.
             </h2>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
