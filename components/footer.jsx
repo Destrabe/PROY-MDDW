@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function Footer() {
@@ -7,7 +8,7 @@ export default function Footer() {
         <div className="w-full max-w-360 mx-auto px-6 lg:px-12 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
             <div>
-              <h3 className="text-xl font-bold text-white mb-4 tracking-tight font-instrument">
+              <h3 className="text-xl font-bold text-white mb-4 tracking-tight font-instrument select-none">
                 LIMA BASICS
               </h3>
               <p className="text-sm text-gray-400 mb-8 leading-relaxed pr-4">
@@ -32,18 +33,22 @@ export default function Footer() {
                 </p>
               </div>
               <div className="flex gap-4 text-sm">
-                <a
-                  href="#"
+                <Link
+                  href="https://www.instagram.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="underline decoration-gray-600 underline-offset-4 hover:text-white transition-colors"
                 >
                   Instagram
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="https://www.tiktok.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="underline decoration-gray-600 underline-offset-4 hover:text-white transition-colors"
                 >
                   TikTok
-                </a>
+                </Link>
               </div>
             </div>
             <div>
@@ -52,29 +57,29 @@ export default function Footer() {
               </h3>
               <ul className="space-y-4 text-sm">
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link href="#" className="hover:text-white transition-colors">
                     Catálogo completo
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link href="#" className="hover:text-white transition-colors">
                     Novedades
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link href="#" className="hover:text-white transition-colors">
                     Esenciales
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link href="#" className="hover:text-white transition-colors">
                     Outerwear
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link href="#" className="hover:text-white transition-colors">
                     Bottoms
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -84,29 +89,29 @@ export default function Footer() {
               </h3>
               <ul className="space-y-4 text-sm">
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link href="#" className="hover:text-white transition-colors">
                     Guía de tallas
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link href="#" className="hover:text-white transition-colors">
                     Envíos y plazos
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link href="#" className="hover:text-white transition-colors">
                     Devoluciones
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link href="#" className="hover:text-white transition-colors">
                     Garantía
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link href="#" className="hover:text-white transition-colors">
                     Preguntas frecuentes
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -147,15 +152,15 @@ export default function Footer() {
           <div className="border-t border-[#222222] py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] text-gray-500">
             <p>© 2024 Lima Basics SAC · RUC 20601234567</p>
             <div className="flex gap-4 sm:gap-6 flex-wrap justify-center">
-              <a href="#" className="hover:text-white transition-colors">
+              <Link href="#" className="hover:text-white transition-colors">
                 Términos y condiciones
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
+              </Link>
+              <Link href="#" className="hover:text-white transition-colors">
                 Privacidad
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
+              </Link>
+              <Link href="#" className="hover:text-white transition-colors">
                 Libro de reclamaciones
-              </a>
+              </Link>
             </div>
           </div>
         </div>
