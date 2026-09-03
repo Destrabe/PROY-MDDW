@@ -20,7 +20,7 @@ export default function Header() {
           <div className="flex items-center space-x-12">
             <Link
               href="/"
-              className="text-black text-xl font-bold font-instrument tracking-tight shrink-0"
+              className="text-black text-xl font-bold font-instrument tracking-tight shrink-0 select-none"
             >
               LIMA BASICS
             </Link>
