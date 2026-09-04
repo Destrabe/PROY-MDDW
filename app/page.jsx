@@ -1,17 +1,20 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen w-full font-sans">
       <section className="relative w-full h-[calc(100vh-56px)] flex flex-col justify-between py-8 md:py-12 px-6 lg:px-12 bg-black overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=2000&auto=format&fit=crop')",
-          }}
-        />
+        <div className="absolute inset-0 opacity-60 overflow-hidden">
+          <Image
+            src="/main.webp"
+            alt="Fondo principal Lima Basics"
+            fill
+            priority
+            className="object-cover object-center"
+          />
+        </div>
         <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-[#1a1511]/90" />
         <div className="relative z-10 max-w-360 mx-auto w-full grow flex flex-col justify-center">
           <div className="flex items-center gap-4 mb-4 md:mb-6">
