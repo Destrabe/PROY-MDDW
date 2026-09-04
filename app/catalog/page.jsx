@@ -75,27 +75,24 @@ export default function CatalogoPage() {
       oldPrice: 119,
       badge: "NUEVO",
       colors: ["#ffffff", "#000000", "#d8c8b8"],
-      image:
-        "https://media.sivasdescalzo.com/media/catalog/product/F/O/FOHSS24PP02-224_sivasdescalzo-Front_of_House_-POLO_PIQUE_OVERSIZE-1715879550-1.jpg?width=1920&q=72&optimize=high&format=auto",
+      image: "/lime_hoodie.webp",
     },
     {
       id: 2,
-      name: "Hoodie Básico Urban",
+      name: "Hoodie Oversize Cyberpunk",
       category: "HOODIES",
       price: 149,
       badge: "MÁS VENDIDO",
       colors: ["#6b705c", "#f4f4f4", "#1a1a1a"],
-      image:
-        "https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=600&auto=format&fit=crop",
+      image: "/hoodie.webp",
     },
     {
       id: 3,
-      name: "Jogger Urban Slim",
+      name: "Pantalon Cargo y2k",
       category: "PANTALONES",
       price: 129,
       colors: ["#222222", "#555555", "#a0785a"],
-      image:
-        "https://images.unsplash.com/photo-1517423568366-8b83523034fd?q=80&w=600&auto=format&fit=crop",
+      image: "/y2k_cargo_pants.webp",
     },
     {
       id: 4,
@@ -105,18 +102,16 @@ export default function CatalogoPage() {
       badge: "ÚLTIMAS UNIDADES",
       stockWarning: "Solo 3 left",
       colors: ["#556b2f", "#f5f5dc", "#000000"],
-      image:
-        "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=600&auto=format&fit=crop",
+      image: "/jacket_cargo.webp",
     },
     {
       id: 5,
-      name: "Tee Gráfico Lima",
+      name: "Polo Streetwear Oversize",
       category: "POLOS",
       price: 79,
       badge: "MÁS VENDIDO",
       colors: ["#ffffff", "#222222"],
-      image:
-        "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=600&auto=format&fit=crop",
+      image: "/shirt.webp",
     },
     {
       id: 6,
@@ -126,8 +121,7 @@ export default function CatalogoPage() {
       oldPrice: 279,
       badge: "NUEVO",
       colors: ["#1a1a1a", "#4a5d23", "#2c3e50"],
-      image:
-        "https://tse1.mm.bing.net/th/id/OIP.zulJCuOIN5Map0EHJ5AjQgHaLH?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
+      image: "/jacket_miraflores.webp",
     },
   ];
   return (
