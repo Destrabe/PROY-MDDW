@@ -27,8 +27,9 @@ export default function LoginModal({ onClose, onSwitchToRegister }) {
 
   return (
     <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-      <div className="bg-white w-full max-w-md rounded-xl p-8 relative shadow-2xl">
+      <div className="bg-white w-full max-w-100 rounded-xl p-8 relative shadow-2xl">
         <button
+          type="button"
           onClick={onClose}
           className="absolute top-5 right-5 text-gray-400 hover:text-black transition-colors"
         >
@@ -86,6 +87,7 @@ export default function LoginModal({ onClose, onSwitchToRegister }) {
         <p className="text-center text-sm text-gray-600 mt-6">
           ¿No tienes cuenta?{" "}
           <button
+            type="button"
             onClick={onSwitchToRegister}
             className="text-black font-semibold hover:underline bg-transparent border-none p-0 ml-1"
           >

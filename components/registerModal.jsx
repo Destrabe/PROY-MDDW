@@ -25,11 +25,13 @@ export default function RegisterModal({ onClose, onSwitchToLogin }) {
       onClose();
     } catch (err) {
       console.error(err);
-      if (err.code === "auth/weak-password")
+      if (err.code === "auth/weak-password") {
         setError("La contraseña debe tener al menos 6 caracteres.");
-      else if (err.code === "auth/email-already-in-use")
+      } else if (err.code === "auth/email-already-in-use") {
         setError("El correo ya está registrado.");
-      else setError("Hubo un error al registrar. Intenta de nuevo.");
+      } else {
+        setError("Hubo un error al registrar. Intenta de nuevo.");
+      }
     } finally {
       setLoading(false);
     }
@@ -37,8 +39,9 @@ export default function RegisterModal({ onClose, onSwitchToLogin }) {
 
   return (
     <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-      <div className="bg-white w-full max-w-md rounded-xl p-8 relative shadow-2xl">
+      <div className="bg-white w-full max-w-100 rounded-xl p-8 relative shadow-2xl">
         <button
+          type="button"
           onClick={onClose}
           className="absolute top-5 right-5 text-gray-400 hover:text-black transition-colors"
         >
@@ -101,6 +104,7 @@ export default function RegisterModal({ onClose, onSwitchToLogin }) {
         <p className="text-center text-sm text-gray-600 mt-6">
           ¿Ya tienes cuenta?{" "}
           <button
+            type="button"
             onClick={onSwitchToLogin}
             className="text-black font-semibold hover:underline bg-transparent border-none p-0 ml-1"
           >
