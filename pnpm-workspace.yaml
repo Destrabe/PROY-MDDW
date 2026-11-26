@@ -1,5 +1,12 @@
 allowBuilds:
   '@firebase/util': true
+  esbuild: false
   protobufjs: true
   sharp: false
   unrs-resolver: false
+permissions:
+  '@prisma/engines':
+    build: true
+  prisma:
+    build: true
+    skills: false
