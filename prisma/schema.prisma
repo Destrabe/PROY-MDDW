@@ -6,3 +6,83 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Usuario {
+  id          Int           @id @default(autoincrement())
+  firebaseUid String?       @unique @map("firebase_uid")
+  email       String        @unique
+  nombre      String
+  password    String?
+  rol         String        @default("USER")
+  carrito     CarritoItem[]
+  pedidos     Pedido[]
+
+  @@map("usuarios")
+}
+
+model Producto {
+  id             Int             @id @default(autoincrement())
+  categoria      String
+  claseEtiqueta  String?         @map("clase_etiqueta")
+  coloresStr     String?         @map("colores_str")
+  etiqueta       String?
+  imagen         String
+  nombre         String
+  precio         Int
+  precioAnterior Int?            @map("precio_anterior")
+  carritoItems   CarritoItem[]
+  detallesPedido DetallePedido[]
+
+  @@map("productos")
+}
+
+model CarritoItem {
+  id         Int      @id @default(autoincrement())
+  cantidad   Int      @default(1)
+  color      String
+  talla      String
+  productoId Int      @map("producto_id")
+  usuarioId  Int      @map("usuario_id")
+  producto   Producto @relation(fields: [productoId], references: [id], onDelete: Cascade)
+  usuario    Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@map("carrito_items")
+}
+
+model Pedido {
+  id              Int             @id @default(autoincrement())
+  costoEnvio      Float           @map("costo_envio")
+  direccionEnvio  String          @map("direccion_envio")
+  estado          String          @default("PENDIENTE")
+  fechaCreacion   DateTime        @default(now()) @map("fecha_creacion")
+  metodoEnvio     String          @map("metodo_envio")
+  total           Float
+  usuarioId       Int             @map("usuario_id")
+  apellidos       String
+  celular         String
+  correo          String
+  direccion       String
+  distrito        String
+  nombres         String
+  numeroDocumento String          @map("numero_documento")
+  referencia      String?
+  tipoDocumento   String          @map("tipo_documento")
+  usuario         Usuario         @relation(fields: [usuarioId], references: [id])
+  detalles        DetallePedido[]
+
+  @@map("pedidos")
+}
+
+model DetallePedido {
+  id         Int      @id @default(autoincrement())
+  cantidad   Int
+  color      String
+  subtotal   Float
+  talla      String
+  pedidoId   Int      @map("pedido_id")
+  productoId Int      @map("producto_id")
+  pedido     Pedido   @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
+  producto   Producto @relation(fields: [productoId], references: [id])
+
+  @@map("detalles_pedido")
+}
