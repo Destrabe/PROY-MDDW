@@ -1,9 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import Header from "@/components/header";
+import React, { useState, useRef } from "react";
 
-// Datos de prueba (Mock Data) basados en la estructura de Java
 const MOCK_PRODUCTOS = [
   {
     id: 1,
@@ -117,15 +115,11 @@ const MOCK_USUARIOS = [
 const SESION_ACTUAL_ID = 1;
 
 export default function AdminDashboardPage() {
-  // Estados principales de datos (Mock interactivo)
   const [productos, setProductos] = useState(MOCK_PRODUCTOS);
   const [pedidos, setPedidos] = useState(MOCK_PEDIDOS);
   const [usuarios, setUsuarios] = useState(MOCK_USUARIOS);
 
-  // Estado de navegación por pestañas
   const [activeTab, setActiveTab] = useState("productos");
-
-  // Estado para desplegar detalles de pedidos
   const [detallesAbiertos, setDetallesAbiertos] = useState({});
 
   // Estados del Modal de Producto
@@ -137,10 +131,13 @@ export default function AdminDashboardPage() {
     precio: "",
     precioAnterior: "",
     etiqueta: "",
-    imagen: "",
   });
   const [coloresActuales, setColoresActuales] = useState(["bg-white", "bg-black"]);
   const [colorHexInput, setColorHexInput] = useState("#000000");
+
+  // Estados para subida de archivo de imagen
+  const [imagenVistaPrevia, setImagenVistaPrevia] = useState("");
+  const fileInputRef = useRef(null);
 
   // Estados del Modal de Usuario
   const [modalUsuarioAbierto, setModalUsuarioAbierto] = useState(false);
@@ -152,7 +149,6 @@ export default function AdminDashboardPage() {
     password: "",
   });
 
-  // --- FUNCIONES DE CONVERSIÓN DE COLORES ---
   const tailwindAHex = (clase) => {
     const limpia = clase.trim();
     if (limpia === "bg-white") return "#FFFFFF";
@@ -177,6 +173,25 @@ export default function AdminDashboardPage() {
     return "bg-gray-800";
   };
 
+  // --- HANDLERS DE IMAGEN ---
+  const procesarArchivoImagen = (archivo) => {
+    if (!archivo) return;
+    if (!archivo.type.startsWith("image/")) {
+      alert("Por favor selecciona un archivo de imagen válido (JPG, PNG, WEBP).");
+      return;
+    }
+    setImagenVistaPrevia(URL.createObjectURL(archivo));
+  };
+
+  const manejarSeleccionImagen = (e) => {
+    procesarArchivoImagen(e.target.files?.[0]);
+  };
+
+  const manejarSoltarImagen = (e) => {
+    e.preventDefault();
+    procesarArchivoImagen(e.dataTransfer.files?.[0]);
+  };
+
   // --- HANDLERS DE PRODUCTOS ---
   const abrirModalCrearProducto = () => {
     setProductoEditandoId(null);
@@ -186,10 +201,10 @@ export default function AdminDashboardPage() {
       precio: "",
       precioAnterior: "",
       etiqueta: "",
-      imagen: "",
     });
     setColorHexInput("#000000");
     setColoresActuales(["bg-white", "bg-black"]);
+    setImagenVistaPrevia("");
     setModalProductoAbierto(true);
   };
 
@@ -201,10 +216,10 @@ export default function AdminDashboardPage() {
       precio: producto.precio || "",
       precioAnterior: producto.precioAnterior || "",
       etiqueta: producto.etiqueta || "",
-      imagen: producto.imagen || "",
     });
     setColorHexInput("#000000");
     setColoresActuales(producto.colores ? [...producto.colores] : []);
+    setImagenVistaPrevia(producto.imagen || "");
     setModalProductoAbierto(true);
   };
 
@@ -212,7 +227,7 @@ export default function AdminDashboardPage() {
     let hex = colorHexInput.trim().toUpperCase();
     if (!hex.startsWith("#")) hex = "#" + hex;
     if (!/^#([0-9A-F]{3}|[0-9A-F]{6})$/.test(hex)) {
-      alert("Ingresa un código HEX válido (por ejemplo: #DDBEA9 o #000000)");
+      alert("Ingresa un código HEX válido (por ejemplo: #DDBEA9)");
       return;
     }
     const claseTailwind = hexATailwind(hex);
@@ -227,6 +242,11 @@ export default function AdminDashboardPage() {
 
   const guardarProducto = (e) => {
     e.preventDefault();
+    if (!imagenVistaPrevia) {
+      alert("Por favor sube una imagen para el producto.");
+      return;
+    }
+
     const nuevoObj = {
       id: productoEditandoId ? productoEditandoId : Date.now(),
       nombre: formProducto.nombre,
@@ -238,11 +258,13 @@ export default function AdminDashboardPage() {
       etiqueta: formProducto.etiqueta || null,
       claseEtiqueta: obtenerClaseEtiqueta(formProducto.etiqueta),
       colores: coloresActuales,
-      imagen: formProducto.imagen,
+      imagen: imagenVistaPrevia,
     };
 
     if (productoEditandoId) {
-      setProductos(productos.map((p) => (p.id === productoEditandoId ? nuevoObj : p)));
+      setProductos(
+        productos.map((p) => (p.id === productoEditandoId ? nuevoObj : p))
+      );
     } else {
       setProductos([...productos, nuevoObj]);
     }
@@ -265,7 +287,9 @@ export default function AdminDashboardPage() {
 
   const actualizarEstadoPedido = (id, nuevoEstado) => {
     setPedidos(
-      pedidos.map((ped) => (ped.id === id ? { ...ped, estado: nuevoEstado } : ped))
+      pedidos.map((ped) =>
+        ped.id === id ? { ...ped, estado: nuevoEstado } : ped
+      )
     );
   };
 
@@ -305,9 +329,7 @@ export default function AdminDashboardPage() {
   };
 
   return (
-    <div className="bg-gray-50 text-gray-900 font-sans antialiased flex flex-col min-h-screen">
-      {/* <Header /> */}
-
+    <div className="bg-gray-50 text-gray-900 font-sans antialiased flex flex-col min-h-screen w-full overflow-x-hidden">
       {/* Banner Superior */}
       <div className="bg-[#0f1115] text-white pt-10 pb-12 px-4 sm:px-6 md:px-12 w-full">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -327,7 +349,7 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Contenido Principal */}
-      <main className="grow max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-10 w-full -mt-4">
+      <main className="grow max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-10 w-full">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
             <span className="text-blue-600 text-xs font-bold tracking-widest uppercase block mb-1">
@@ -338,7 +360,6 @@ export default function AdminDashboardPage() {
             </h1>
           </div>
 
-          {/* Navegación por Tabs */}
           <div className="inline-flex bg-gray-200 p-1 rounded-xl">
             <button
               type="button"
@@ -349,7 +370,7 @@ export default function AdminDashboardPage() {
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
-              <i className="fas fa-box-open mr-2"></i>Productos ({productos.length})
+              Productos ({productos.length})
             </button>
             <button
               type="button"
@@ -360,7 +381,7 @@ export default function AdminDashboardPage() {
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
-              <i className="fas fa-shopping-bag mr-2"></i>Pedidos ({pedidos.length})
+              Pedidos ({pedidos.length})
             </button>
             <button
               type="button"
@@ -371,7 +392,7 @@ export default function AdminDashboardPage() {
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
-              <i className="fas fa-users mr-2"></i>Usuarios ({usuarios.length})
+              Usuarios ({usuarios.length})
             </button>
           </div>
         </div>
@@ -390,9 +411,9 @@ export default function AdminDashboardPage() {
               <button
                 type="button"
                 onClick={abrirModalCrearProducto}
-                className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-colors flex items-center shadow-sm"
+                className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2 shadow-sm"
               >
-                <i className="fas fa-plus mr-2"></i> Nuevo Producto
+                <span>+</span> Nuevo Producto
               </button>
             </div>
 
@@ -420,7 +441,7 @@ export default function AdminDashboardPage() {
                           <img
                             src={p.imagen}
                             alt={p.nombre}
-                            className="w-11 h-14 object-cover rounded border border-gray-200 shrink-0"
+                            className="w-11 h-14 object-cover rounded border border-gray-200 shrink-0 bg-gray-50"
                           />
                           <span className="font-bold text-gray-900">
                             {p.nombre}
@@ -472,14 +493,14 @@ export default function AdminDashboardPage() {
                           onClick={() => abrirModalEditarProducto(p)}
                           className="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg text-xs font-bold transition-colors"
                         >
-                          <i className="fas fa-pen mr-1"></i> Editar
+                          Editar
                         </button>
                         <button
                           type="button"
                           onClick={() => eliminarProducto(p.id)}
                           className="px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg text-xs font-bold transition-colors"
                         >
-                          <i className="fas fa-trash mr-1"></i> Borrar
+                          Borrar
                         </button>
                       </td>
                     </tr>
@@ -493,355 +514,180 @@ export default function AdminDashboardPage() {
         {/* ================= SECCIÓN PEDIDOS ================= */}
         {activeTab === "pedidos" && (
           <section className="space-y-6">
-            <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex justify-between items-center">
-              <div>
-                <h2 className="font-bold text-lg">Gestión Avanzada de Pedidos</h2>
-                <p className="text-xs text-gray-500">
-                  Revisa los detalles de cada compra, los productos solicitados y
-                  actualiza el estado de envío.
-                </p>
-              </div>
+            <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+              <h2 className="font-bold text-lg">Gestión Avanzada de Pedidos</h2>
+              <p className="text-xs text-gray-500">
+                Revisa los detalles de cada compra y actualiza el estado de
+                envío.
+              </p>
             </div>
 
-            {pedidos.length === 0 ? (
-              <div className="text-center py-16 bg-white rounded-2xl border border-gray-200 shadow-sm">
-                <i className="fas fa-inbox text-4xl text-gray-300 mb-3 block"></i>
-                <h3 className="text-lg font-bold text-gray-800 mb-1">
-                  No hay pedidos registrados
-                </h3>
-                <p className="text-sm text-gray-500">
-                  Las compras de tus clientes aparecerán aquí automáticamente.
-                </p>
-              </div>
-            ) : (
-              <div className="space-y-5">
-                {pedidos.map((pedido) => {
-                  const estaAbierto = !!detallesAbiertos[pedido.id];
-                  return (
-                    <div
-                      key={pedido.id}
-                      className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden"
-                    >
-                      <div className="p-5 sm:p-6 flex flex-col lg:flex-row justify-between gap-6">
-                        <div className="flex items-start gap-4">
-                          <div className="w-12 h-12 rounded-full bg-blue-50 text-[#1d4ed8] flex items-center justify-center shrink-0">
-                            <i className="fas fa-shopping-bag text-lg"></i>
-                          </div>
-                          <div>
-                            <div className="flex flex-wrap items-center gap-2 mb-1">
-                              <span className="font-black text-lg text-gray-900">
-                                LB-2026-0{pedido.id}
-                              </span>
-                              {(pedido.estado === "Completado" ||
-                                pedido.estado === "Confirmado") && (
-                                <span className="bg-blue-100 text-blue-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                                  {pedido.estado}
-                                </span>
-                              )}
-                              {pedido.estado === "En camino" && (
-                                <span className="bg-[#1d4ed8] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                                  En camino
-                                </span>
-                              )}
-                              {pedido.estado === "Entregado" && (
-                                <span className="bg-emerald-100 text-emerald-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                                  Entregado
-                                </span>
-                              )}
-                              {pedido.estado === "Cancelado" && (
-                                <span className="bg-gray-100 text-gray-600 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                                  Cancelado
-                                </span>
-                              )}
-                            </div>
-                            <p className="text-xs text-gray-500 mb-3">
-                              <span>{pedido.fechaCreacion}</span> ·{" "}
-                              <span>{pedido.detalles.length} productos</span>
-                            </p>
-
-                            <div className="flex items-center -space-x-2">
-                              {pedido.detalles.slice(0, 4).map((detalle, idx) =>
-                                detalle.producto.imagen ? (
-                                  <img
-                                    key={idx}
-                                    src={detalle.producto.imagen}
-                                    alt={detalle.producto.nombre}
-                                    className="inline-block w-9 h-9 rounded-full ring-2 ring-white object-cover border border-gray-100 bg-white"
-                                  />
-                                ) : (
-                                  <div
-                                    key={idx}
-                                    className="inline-flex w-9 h-9 rounded-full ring-2 ring-white bg-gray-200 items-center justify-center text-[10px]"
-                                  >
-                                    <i className="fas fa-tshirt text-gray-400"></i>
-                                  </div>
-                                )
-                              )}
-                            </div>
-                          </div>
+            <div className="space-y-4">
+              {pedidos.map((pedido) => {
+                const estaAbierto = !!detallesAbiertos[pedido.id];
+                return (
+                  <div
+                    key={pedido.id}
+                    className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden"
+                  >
+                    <div className="p-5 flex flex-col lg:flex-row justify-between gap-4">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-black text-lg text-gray-900">
+                            LB-2026-0{pedido.id}
+                          </span>
+                          <span className="bg-blue-100 text-blue-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
+                            {pedido.estado}
+                          </span>
                         </div>
-
-                        <div className="flex flex-col items-start lg:items-end justify-between border-t border-gray-100 lg:border-0 pt-4 lg:pt-0 gap-4 lg:gap-0 w-full lg:w-auto">
-                          <div className="flex items-center gap-2 w-full lg:w-auto">
-                            <select
-                              value={pedido.estado}
-                              onChange={(e) =>
-                                actualizarEstadoPedido(pedido.id, e.target.value)
-                              }
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-xs font-bold rounded-lg focus:ring-[#1d4ed8] focus:border-[#1d4ed8] block py-2 px-3 outline-none cursor-pointer grow lg:grow-0"
-                            >
-                              <option value="Confirmado">Confirmado</option>
-                              <option value="En camino">En camino</option>
-                              <option value="Entregado">Entregado</option>
-                              <option value="Cancelado">Cancelado</option>
-                            </select>
-                            <button
-                              type="button"
-                              onClick={() =>
-                                alert(`Estado de pedido LB-2026-0${pedido.id} actualizado`)
-                              }
-                              className="bg-[#0f1115] hover:bg-black text-white font-bold py-2 px-4 rounded-lg text-xs transition-colors shadow-sm whitespace-nowrap"
-                            >
-                              Actualizar
-                            </button>
-                          </div>
-
-                          <div className="flex items-end justify-between w-full lg:w-auto lg:flex-col lg:items-end gap-2 mt-2">
-                            <div className="text-left lg:text-right">
-                              <span className="font-black text-xl text-gray-900 block">
-                                S/ {Number(pedido.total).toFixed(2)}
-                              </span>
-                              <span className="text-[10px] text-gray-400 uppercase tracking-wider block mt-0.5">
-                                Pagado vía Web
-                              </span>
-                            </div>
-
-                            <button
-                              type="button"
-                              onClick={() => toggleDetalle(pedido.id)}
-                              className="text-xs font-bold text-[#1d4ed8] flex items-center gap-1.5 hover:text-blue-800 transition-colors bg-blue-50 px-3 py-1.5 rounded-lg"
-                            >
-                              <span>
-                                {estaAbierto ? "Ocultar detalle" : "Ver detalle"}
-                              </span>
-                              <i
-                                className={`fas fa-chevron-down text-[10px] transition-transform duration-300 ${
-                                  estaAbierto ? "rotate-180" : "rotate-0"
-                                }`}
-                              ></i>
-                            </button>
-                          </div>
-                        </div>
+                        <p className="text-xs text-gray-500">
+                          {pedido.fechaCreacion} · {pedido.detalles.length}{" "}
+                          productos
+                        </p>
                       </div>
 
-                      {/* Detalle Desplegable */}
-                      {estaAbierto && (
-                        <div className="bg-[#f8f9fc] border-t border-gray-100">
-                          <div className="p-5 sm:p-6 border-b border-gray-100">
-                            <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-4">
-                              Productos del Pedido
-                            </h4>
-                            <div className="space-y-4">
-                              {pedido.detalles.map((detalle) => (
-                                <div
-                                  key={detalle.id}
-                                  className="flex items-center justify-between border-b border-gray-200/60 pb-4 last:border-0 last:pb-0"
-                                >
-                                  <div className="flex items-center gap-4">
-                                    {detalle.producto.imagen ? (
-                                      <img
-                                        src={detalle.producto.imagen}
-                                        alt={detalle.producto.nombre}
-                                        className="w-16 h-20 object-cover rounded-lg shrink-0 border border-gray-200 bg-white shadow-sm"
-                                      />
-                                    ) : (
-                                      <div className="w-16 h-20 bg-gray-200 rounded-lg flex items-center justify-center shrink-0">
-                                        <i className="fas fa-tshirt text-gray-400"></i>
-                                      </div>
-                                    )}
-                                    <div>
-                                      <h4 className="font-bold text-sm text-gray-900">
-                                        {detalle.producto.nombre}
-                                      </h4>
-                                      <p className="text-xs text-gray-500 mt-1">
-                                        Talla {detalle.talla} · {detalle.color}
-                                      </p>
-                                      <p className="text-xs font-medium text-gray-600 mt-1">
-                                        Cantidad: {detalle.cantidad}
-                                      </p>
-                                    </div>
-                                  </div>
-                                  <span className="font-bold text-sm text-gray-900">
-                                    S/ {Number(detalle.subtotal).toFixed(2)}
-                                  </span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-
-                          <div className="p-5 sm:p-6 bg-white flex flex-col md:flex-row justify-between items-start gap-6">
-                            <div>
-                              <span className="text-[10px] font-bold text-gray-400 tracking-wider uppercase block mb-1.5">
-                                Información de Envío
-                              </span>
-                              <p className="text-sm font-bold text-blue-600 mb-0.5">
-                                <i
-                                  className={`${
-                                    pedido.costoEnvio === 0
-                                      ? "fas fa-store mr-1.5"
-                                      : "fas fa-truck mr-1.5"
-                                  }`}
-                                ></i>
-                                <span>
-                                  {pedido.metodoEnvio || "Envío Estándar"}
-                                </span>
-                                <span>
-                                  {pedido.costoEnvio === 0
-                                    ? " (Gratis)"
-                                    : pedido.costoEnvio != null
-                                    ? ` (S/ ${Number(pedido.costoEnvio).toFixed(2)})`
-                                    : " (S/ 8.00)"}
-                                </span>
-                              </p>
-                              <p className="text-xs text-gray-500 mt-1">
-                                Dirección:{" "}
-                                {pedido.direccionEnvio || "Pendiente"}
-                              </p>
-                            </div>
-                            <div className="md:text-right border-t border-gray-100 md:border-0 w-full md:w-auto pt-4 md:pt-0">
-                              <span className="text-[10px] font-bold text-gray-400 tracking-wider uppercase block mb-1.5">
-                                Datos del Cliente
-                              </span>
-                              <p className="text-sm font-bold text-gray-900 mb-0.5">
-                                {pedido.usuario.nombre}
-                              </p>
-                              <p className="text-xs text-gray-500 mt-1">
-                                ID: #{pedido.usuario.id} ·{" "}
-                                {pedido.usuario.email}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      )}
+                      <div className="flex items-center gap-3">
+                        <select
+                          value={pedido.estado}
+                          onChange={(e) =>
+                            actualizarEstadoPedido(pedido.id, e.target.value)
+                          }
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-xs font-bold rounded-lg py-2 px-3"
+                        >
+                          <option value="Confirmado">Confirmado</option>
+                          <option value="En camino">En camino</option>
+                          <option value="Entregado">Entregado</option>
+                          <option value="Cancelado">Cancelado</option>
+                        </select>
+                        <button
+                          type="button"
+                          onClick={() => toggleDetalle(pedido.id)}
+                          className="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-2 rounded-lg"
+                        >
+                          {estaAbierto ? "Ocultar detalle" : "Ver detalle"}
+                        </button>
+                      </div>
                     </div>
-                  );
-                })}
-              </div>
-            )}
+
+                    {estaAbierto && (
+                      <div className="p-5 bg-gray-50 border-t border-gray-100 text-xs text-gray-600 space-y-2">
+                        <p>
+                          <strong>Cliente:</strong> {pedido.usuario.nombre} (
+                          {pedido.usuario.email})
+                        </p>
+                        <p>
+                          <strong>Envío:</strong> {pedido.metodoEnvio} —{" "}
+                          {pedido.direccionEnvio}
+                        </p>
+                        <p>
+                          <strong>Total:</strong> S/{" "}
+                          {Number(pedido.total).toFixed(2)}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </section>
         )}
 
         {/* ================= SECCIÓN USUARIOS ================= */}
         {activeTab === "usuarios" && (
-          <section className="space-y-6">
-            <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex justify-between items-center">
-              <div>
-                <h2 className="font-bold text-lg">Usuarios Registrados</h2>
-                <p className="text-xs text-gray-500">
-                  Visualiza las cuentas registradas, modifica sus datos/roles o
-                  da de baja usuarios.
-                </p>
-              </div>
-              <span className="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-lg font-medium hidden sm:block">
-                El registro de nuevas cuentas se realiza desde el formulario
-                público.
-              </span>
-            </div>
-
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="border-b border-gray-200 bg-gray-50 text-[11px] font-bold uppercase tracking-wider text-gray-500">
-                    <th className="p-4">ID</th>
-                    <th className="p-4">Usuario</th>
-                    <th className="p-4">Correo Electrónico</th>
-                    <th className="p-4">Rol</th>
-                    <th className="p-4 text-right">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100 text-sm">
-                  {usuarios.map((u) => (
-                    <tr key={u.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="p-4 font-mono text-xs text-gray-400">
-                        #{u.id}
-                      </td>
-                      <td className="p-4">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-9 h-9 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center">
-                            <span>
-                              {u.nombre && u.nombre.length > 0
-                                ? u.nombre.charAt(0).toUpperCase()
-                                : "U"}
-                            </span>
-                          </div>
-                          <span className="font-bold text-gray-900">
-                            {u.nombre}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="p-4 text-gray-600">{u.email}</td>
-                      <td className="p-4">
-                        {u.rol === "ADMIN" ? (
-                          <span className="px-2.5 py-1 bg-blue-100 text-blue-700 font-bold text-xs rounded-full">
-                            ADMIN
-                          </span>
-                        ) : (
-                          <span className="px-2.5 py-1 bg-gray-100 text-gray-700 font-medium text-xs rounded-full">
-                            {u.rol}
-                          </span>
-                        )}
-                      </td>
-                      <td className="p-4 text-right space-x-2 whitespace-nowrap">
+          <section className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-gray-200 bg-gray-50 text-[11px] font-bold uppercase tracking-wider text-gray-500">
+                  <th className="p-4">ID</th>
+                  <th className="p-4">Usuario</th>
+                  <th className="p-4">Correo</th>
+                  <th className="p-4">Rol</th>
+                  <th className="p-4 text-right">Acciones</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 text-sm">
+                {usuarios.map((u) => (
+                  <tr key={u.id} className="hover:bg-gray-50">
+                    <td className="p-4 font-mono text-xs text-gray-400">
+                      #{u.id}
+                    </td>
+                    <td className="p-4 font-bold text-gray-900">{u.nombre}</td>
+                    <td className="p-4 text-gray-600">{u.email}</td>
+                    <td className="p-4">
+                      <span className="px-2.5 py-1 bg-blue-100 text-blue-700 font-bold text-xs rounded-full">
+                        {u.rol}
+                      </span>
+                    </td>
+                    <td className="p-4 text-right space-x-2">
+                      <button
+                        type="button"
+                        onClick={() => abrirModalEditarUsuario(u)}
+                        className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-bold"
+                      >
+                        Editar
+                      </button>
+                      {SESION_ACTUAL_ID !== u.id && (
                         <button
                           type="button"
-                          onClick={() => abrirModalEditarUsuario(u)}
-                          className="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg text-xs font-bold transition-colors"
+                          onClick={() => eliminarUsuario(u.id)}
+                          className="px-3 py-1.5 bg-red-50 text-red-600 rounded-lg text-xs font-bold"
                         >
-                          <i className="fas fa-user-pen mr-1"></i> Editar
+                          Eliminar
                         </button>
-                        {SESION_ACTUAL_ID !== u.id ? (
-                          <button
-                            type="button"
-                            onClick={() => eliminarUsuario(u.id)}
-                            className="px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg text-xs font-bold transition-colors"
-                          >
-                            <i className="fas fa-trash mr-1"></i> Eliminar
-                          </button>
-                        ) : (
-                          <span className="text-xs text-gray-400 italic px-2">
-                            Sesión actual
-                          </span>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </section>
         )}
       </main>
 
-      {/* ================= MODAL CREAR / EDITAR PRODUCTO ================= */}
+      {/* ================= MODAL CREAR / EDITAR PRODUCTO (FIJO Y COMPACTO) ================= */}
       {modalProductoAbierto && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-[2px] px-4">
-          <div className="bg-white rounded-2xl w-full max-w-lg p-7 relative shadow-2xl">
+        <div
+          onClick={() => setModalProductoAbierto(false)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            backdropFilter: "blur(2px)",
+            padding: "16px",
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-2xl w-full max-w-md p-5 relative shadow-2xl mx-auto"
+          >
+            {/* Botón cerrar */}
             <button
               type="button"
               onClick={() => setModalProductoAbierto(false)}
-              className="absolute top-5 right-5 text-gray-400 hover:text-black"
+              aria-label="Cerrar modal"
+              className="absolute top-3.5 right-3.5 w-7 h-7 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-black flex items-center justify-center transition-colors font-bold text-xs"
             >
-              <i className="fas fa-times text-lg"></i>
+              ✕
             </button>
-            <h3 className="text-2xl font-black tracking-tight mb-5">
+
+            <h3 className="text-lg font-black tracking-tight mb-3 pr-8">
               {productoEditandoId
                 ? `Editar Producto #${productoEditandoId}`
                 : "Nuevo Producto"}
             </h3>
-            <form onSubmit={guardarProducto} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+            <form onSubmit={guardarProducto} className="space-y-2.5">
+              {/* Fila 1: Nombre y Categoría */}
+              <div className="grid grid-cols-2 gap-2.5">
                 <div>
-                  <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                  <label className="block text-[10px] font-bold uppercase text-gray-600 mb-1">
                     Nombre *
                   </label>
                   <input
@@ -851,11 +697,11 @@ export default function AdminDashboardPage() {
                     onChange={(e) =>
                       setFormProducto({ ...formProducto, nombre: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm"
+                    className="w-full border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:border-blue-600"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                  <label className="block text-[10px] font-bold uppercase text-gray-600 mb-1">
                     Categoría *
                   </label>
                   <select
@@ -866,7 +712,7 @@ export default function AdminDashboardPage() {
                         categoria: e.target.value,
                       })
                     }
-                    className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm bg-white"
+                    className="w-full border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs bg-white focus:outline-none focus:border-blue-600"
                   >
                     <option value="Polos">Polos</option>
                     <option value="Hoodies">Hoodies</option>
@@ -877,9 +723,10 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Fila 2: Precio y Precio Anterior */}
+              <div className="grid grid-cols-2 gap-2.5">
                 <div>
-                  <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                  <label className="block text-[10px] font-bold uppercase text-gray-600 mb-1">
                     Precio (S/) *
                   </label>
                   <input
@@ -890,42 +737,43 @@ export default function AdminDashboardPage() {
                     onChange={(e) =>
                       setFormProducto({ ...formProducto, precio: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm"
+                    className="w-full border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:border-blue-600"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                  <label className="block text-[10px] font-bold uppercase text-gray-600 mb-1">
                     Precio Anterior
                   </label>
                   <input
                     type="number"
                     step="0.01"
-                    value={formProducto.precioAnterior}
+                    value={formProducto.precioAnterior || ""}
                     onChange={(e) =>
                       setFormProducto({
                         ...formProducto,
                         precioAnterior: e.target.value,
                       })
                     }
-                    className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm"
+                    className="w-full border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:border-blue-600"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Fila 3: Etiqueta y Color HEX */}
+              <div className="grid grid-cols-2 gap-2.5">
                 <div>
-                  <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                  <label className="block text-[10px] font-bold uppercase text-gray-600 mb-1">
                     Etiqueta
                   </label>
                   <select
-                    value={formProducto.etiqueta}
+                    value={formProducto.etiqueta || ""}
                     onChange={(e) =>
                       setFormProducto({
                         ...formProducto,
                         etiqueta: e.target.value,
                       })
                     }
-                    className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm bg-white"
+                    className="w-full border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs bg-white focus:outline-none focus:border-blue-600"
                   >
                     <option value="">Sin etiqueta</option>
                     <option value="Nuevo">Nuevo</option>
@@ -934,10 +782,10 @@ export default function AdminDashboardPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                  <label className="block text-[10px] font-bold uppercase text-gray-600 mb-1">
                     Agregar Color (HEX)
                   </label>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1">
                     <input
                       type="color"
                       value={
@@ -948,7 +796,7 @@ export default function AdminDashboardPage() {
                       onChange={(e) =>
                         setColorHexInput(e.target.value.toUpperCase())
                       }
-                      className="w-10 h-10.5 rounded-lg border border-gray-300 cursor-pointer p-0.5 bg-white shrink-0"
+                      className="w-7 h-7 rounded border border-gray-300 cursor-pointer p-0 bg-white shrink-0"
                     />
                     <input
                       type="text"
@@ -962,27 +810,28 @@ export default function AdminDashboardPage() {
                           agregarColorHex();
                         }
                       }}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm font-mono uppercase"
+                      className="min-w-0 flex-1 border border-gray-300 rounded-lg px-2 py-1.5 text-xs font-mono uppercase focus:outline-none focus:border-blue-600"
                     />
                     <button
                       type="button"
                       onClick={agregarColorHex}
-                      className="px-3.5 py-2.5 bg-gray-900 hover:bg-black text-white rounded-lg text-sm font-bold transition-colors shrink-0"
+                      className="w-7 h-7 flex items-center justify-center bg-[#0f1115] hover:bg-black text-white rounded-lg text-xs font-bold shrink-0"
                     >
-                      <i className="fas fa-plus"></i>
+                      +
                     </button>
                   </div>
                 </div>
               </div>
 
+              {/* Fila 4: Colores seleccionados */}
               <div>
-                <label className="block text-xs font-bold uppercase text-gray-700 mb-1.5">
+                <label className="block text-[10px] font-bold uppercase text-gray-600 mb-1">
                   Colores seleccionados
                 </label>
-                <div className="flex flex-wrap gap-2 p-2.5 min-h-11 border border-gray-200 rounded-lg bg-gray-50 items-center">
+                <div className="flex flex-wrap gap-1.5 p-1.5 min-h-[34px] border border-gray-200 rounded-lg bg-gray-50 items-center">
                   {coloresActuales.length === 0 ? (
-                    <span className="text-xs text-gray-400 italic">
-                      Sin colores asignados. Agrega uno arriba.
+                    <span className="text-[11px] text-gray-400 italic px-1">
+                      Sin colores asignados
                     </span>
                   ) : (
                     coloresActuales.map((clase, index) => {
@@ -990,19 +839,19 @@ export default function AdminDashboardPage() {
                       return (
                         <div
                           key={index}
-                          className="inline-flex items-center gap-1.5 bg-white border border-gray-300 rounded-full pl-1.5 pr-2.5 py-1 text-xs font-mono shadow-sm"
+                          className="inline-flex items-center gap-1 bg-white border border-gray-300 rounded-full pl-1 pr-2 py-0.5 text-[10px] font-mono shadow-sm"
                         >
                           <span
-                            className="w-4 h-4 rounded-full border border-gray-300"
+                            className="w-3 h-3 rounded-full border border-gray-300"
                             style={{ backgroundColor: hex }}
                           />
                           <span className="text-gray-700 font-bold">{hex}</span>
                           <button
                             type="button"
                             onClick={() => eliminarColor(index)}
-                            className="text-gray-400 hover:text-red-500 ml-1 focus:outline-none"
+                            className="text-gray-400 hover:text-red-500 ml-0.5 font-bold"
                           >
-                            <i className="fas fa-times"></i>
+                            ✕
                           </button>
                         </div>
                       );
@@ -1011,32 +860,88 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
 
+              {/* Fila 5: Subir Archivo de Imagen (compacto) */}
               <div>
-                <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
-                  URL de Imagen *
+                <label className="block text-[10px] font-bold uppercase text-gray-600 mb-1">
+                  Imagen del Producto *
                 </label>
-                <input
-                  type="url"
-                  required
-                  value={formProducto.imagen}
-                  onChange={(e) =>
-                    setFormProducto({ ...formProducto, imagen: e.target.value })
-                  }
-                  className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm"
-                />
+                <div
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={manejarSoltarImagen}
+                  onClick={() => fileInputRef.current?.click()}
+                  className="border-2 border-dashed border-gray-300 hover:border-blue-500 rounded-xl px-3 py-2.5 cursor-pointer transition-colors bg-gray-50 flex items-center justify-between gap-3"
+                >
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    accept="image/jpeg,image/png,image/webp"
+                    onChange={manejarSeleccionImagen}
+                    className="hidden"
+                  />
+
+                  {imagenVistaPrevia ? (
+                    <>
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <img
+                          src={imagenVistaPrevia}
+                          alt="Vista previa"
+                          className="w-9 h-11 object-cover rounded border border-gray-300 shrink-0 bg-white"
+                        />
+                        <div className="truncate">
+                          <p className="text-xs font-bold text-gray-800 truncate">
+                            Imagen seleccionada
+                          </p>
+                          <p className="text-[10px] text-blue-600 font-medium">
+                            Clic para reemplazar archivo
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-bold uppercase bg-white border border-gray-200 px-2 py-1 rounded text-gray-600 shrink-0">
+                        Cambiar
+                      </span>
+                    </>
+                  ) : (
+                    <div className="flex items-center gap-2.5 w-full">
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-gray-700">
+                          Subir archivo de imagen o arrastrar aquí
+                        </p>
+                        <p className="text-[10px] text-gray-400">
+                          JPG, PNG o WEBP
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
 
-              <div className="flex justify-end gap-3 pt-3">
+              {/* Botones de acción */}
+              <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
                 <button
                   type="button"
                   onClick={() => setModalProductoAbierto(false)}
-                  className="px-5 py-2.5 rounded-lg border border-gray-300 text-sm font-bold text-gray-700"
+                  className="px-4 py-1.5 rounded-lg border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-50"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold"
+                  className="px-5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm"
                 >
                   Guardar
                 </button>
@@ -1048,21 +953,38 @@ export default function AdminDashboardPage() {
 
       {/* ================= MODAL EDITAR USUARIO ================= */}
       {modalUsuarioAbierto && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-[2px] px-4">
-          <div className="bg-white rounded-2xl w-full max-w-md p-7 relative shadow-2xl">
+        <div
+          onClick={() => setModalUsuarioAbierto(false)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            backdropFilter: "blur(2px)",
+            padding: "16px",
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl mx-auto"
+          >
             <button
               type="button"
               onClick={() => setModalUsuarioAbierto(false)}
-              className="absolute top-5 right-5 text-gray-400 hover:text-black"
+              className="absolute top-4 right-4 w-7 h-7 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center font-bold text-xs"
             >
-              <i className="fas fa-times text-lg"></i>
+              ✕
             </button>
-            <h3 className="text-2xl font-black tracking-tight mb-5">
-              Editar Usuario
-            </h3>
-            <form onSubmit={guardarUsuario} className="space-y-4">
+            <h3 className="text-lg font-black mb-4">Editar Usuario</h3>
+            <form onSubmit={guardarUsuario} className="space-y-3">
               <div>
-                <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                <label className="block text-[10px] font-bold uppercase text-gray-600 mb-1">
                   Nombre Completo *
                 </label>
                 <input
@@ -1072,11 +994,11 @@ export default function AdminDashboardPage() {
                   onChange={(e) =>
                     setFormUsuario({ ...formUsuario, nombre: e.target.value })
                   }
-                  className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs"
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                <label className="block text-[10px] font-bold uppercase text-gray-600 mb-1">
                   Correo Electrónico *
                 </label>
                 <input
@@ -1086,11 +1008,11 @@ export default function AdminDashboardPage() {
                   onChange={(e) =>
                     setFormUsuario({ ...formUsuario, email: e.target.value })
                   }
-                  className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs"
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                <label className="block text-[10px] font-bold uppercase text-gray-600 mb-1">
                   Rol *
                 </label>
                 <select
@@ -1098,37 +1020,23 @@ export default function AdminDashboardPage() {
                   onChange={(e) =>
                     setFormUsuario({ ...formUsuario, rol: e.target.value })
                   }
-                  className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm bg-white"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs bg-white"
                 >
                   <option value="USER">USER</option>
                   <option value="ADMIN">ADMIN</option>
                 </select>
               </div>
-              <div>
-                <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
-                  Nueva Contraseña (Opcional)
-                </label>
-                <input
-                  type="password"
-                  placeholder="Dejar en blanco para mantener actual"
-                  value={formUsuario.password}
-                  onChange={(e) =>
-                    setFormUsuario({ ...formUsuario, password: e.target.value })
-                  }
-                  className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm"
-                />
-              </div>
-              <div className="flex justify-end gap-3 pt-3">
+              <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
                 <button
                   type="button"
                   onClick={() => setModalUsuarioAbierto(false)}
-                  className="px-5 py-2.5 rounded-lg border border-gray-300 text-sm font-bold text-gray-700"
+                  className="px-4 py-1.5 border border-gray-300 rounded-lg text-xs font-bold text-gray-700"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold"
+                  className="px-5 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-bold"
                 >
                   Actualizar
                 </button>
