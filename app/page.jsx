@@ -3,8 +3,10 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col min-h-screen w-full font-sans">
-      <section className="relative w-full h-[90vh] min-h-150 flex flex-col justify-between pt-24 pb-12 px-6 lg:px-12 bg-black">
+    <div className="flex flex-col min-h-screen w-full font-sans overflow-x-hidden">
+      {/* 1. HERO SECTION */}
+      <section className="relative w-full h-[calc(88dvh-3.5rem)] flex flex-col justify-center pt-20 sm:pt-24 pb-6 sm:pb-8 px-6 lg:px-12 bg-black overflow-hidden">
+        {/* Imagen de fondo */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
           style={{
@@ -12,21 +14,26 @@ export default function HomePage() {
               "url('https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=2000&auto=format&fit=crop')",
           }}
         />
-        <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-[#1a1511]/90" />
-        <div className="relative z-10 max-w-360 mx-auto w-full grow flex flex-col justify-center">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-8 h-px bg-blue-600"></div>
+
+        {/* Gradiente oscuro de izquierda a derecha */}
+        <div className="absolute inset-0 bg-linear-to-r from-[#0f0f0f] via-black/60 to-transparent" />
+
+        {/* Contenedor del texto */}
+        <div className="relative z-10 max-w-360 mx-auto w-full">
+          <div className="flex items-center gap-4 mb-4 sm:mb-6">
+            <div className="w-10 h-px bg-blue-600"></div>
             <span className="text-blue-600 text-xs font-bold tracking-[0.3em] uppercase">
               Lima · Perú · 2024
             </span>
           </div>
 
-          <h1 className="text-7xl md:text-9xl font-bold text-white tracking-tighter leading-[0.85] mb-10">
+          <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] lg:text-[7rem] leading-none font-bold text-white tracking-tighter mb-6 sm:mb-10">
             LO <br />
             <span className="text-blue-600">BÁSICO,</span> <br />
             ELEVADO.
           </h1>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
             <Link
               href="/catalog"
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded font-bold text-sm tracking-wide transition-colors flex items-center gap-2"
@@ -46,28 +53,14 @@ export default function HomePage() {
                 ></path>
               </svg>
             </Link>
-            <p className="text-gray-300 text-sm max-w-xs leading-relaxed">
+            <p className="text-gray-300 text-sm max-w-70 leading-relaxed">
               Algodón pima peruano · Diseño contemporáneo · Hecho para Lima
             </p>
           </div>
         </div>
-        <div className="relative z-10 max-w-360 mx-auto w-full mt-16">
-          <div className="border-t border-white/20 pt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <p className="text-3xl font-bold text-white mb-1">100%</p>
-              <p className="text-gray-400 text-sm">Algodón pima peruano</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-white mb-1">+500</p>
-              <p className="text-gray-400 text-sm">Clientes en Lima</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-white mb-1">48h</p>
-              <p className="text-gray-400 text-sm">Entrega express</p>
-            </div>
-          </div>
-        </div>
       </section>
+
+      {/* 2. NUESTRA FILOSOFÍA (Aquí comienza la franja blanca inferior) */}
       <section className="w-full bg-white py-24 px-6 lg:px-12">
         <div className="max-w-360 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
@@ -115,6 +108,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* 3. CATEGORÍAS */}
       <section className="w-full bg-slate-50 py-24 px-6 lg:px-12">
         <div className="max-w-360 mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           <Link
@@ -155,6 +150,7 @@ export default function HomePage() {
               </span>
             </div>
           </Link>
+
           <Link
             href="/categoria/outerwear"
             className="group relative h-125 rounded-lg overflow-hidden bg-slate-900 block"
@@ -194,6 +190,7 @@ export default function HomePage() {
               </span>
             </div>
           </Link>
+
           <Link
             href="/categoria/bottoms"
             className="group relative h-125 rounded-lg overflow-hidden bg-slate-900 block"
@@ -234,6 +231,8 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+
+      {/* 4. BENEFICIOS */}
       <section className="w-full bg-slate-50 py-16 px-6 lg:px-12 border-t border-slate-200">
         <div className="max-w-360 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
@@ -266,6 +265,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* 5. CTA INVIERNO */}
       <section className="w-full bg-[#0B101B] py-24 px-6 lg:px-12">
         <div className="max-w-360 mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
           <div>
@@ -292,6 +293,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* 6. NEWSLETTER */}
       <section className="bg-[#f4f5f7] w-full py-24 px-6 flex flex-col items-center justify-center text-center">
         <span className="text-xs font-semibold tracking-[0.2em] text-slate-400 mb-4 uppercase">
           ÚNETE
@@ -302,7 +305,7 @@ export default function HomePage() {
         <p className="text-slate-500 text-sm mb-8">
           Lanzamientos, descuentos exclusivos y novedades. Sin spam.
         </p>
-        <form className="flex w-full max-w-md gap-2">
+        <form className="flex w-full max-w-md gap-2 mx-auto">
           <input
             type="email"
             placeholder="tu@correo.pe"
