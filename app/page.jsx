@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HomePage() {
   return (
@@ -24,19 +25,38 @@ export default function HomePage() {
             <div className="w-10 h-px bg-blue-600"></div>
             <span className="text-blue-600 text-xs font-bold tracking-[0.3em] uppercase">
               Lima · Perú · 2024
+    <div className="flex flex-col min-h-screen w-full font-sans">
+      <section className="relative w-full h-[calc(100vh-56px)] flex flex-col justify-between py-8 md:py-12 px-6 lg:px-12 bg-black overflow-hidden">
+        <div className="absolute inset-0 opacity-60 overflow-hidden">
+          <Image
+            src="/main.webp"
+            alt="Fondo principal Lima Basics"
+            fill
+            priority
+            className="object-cover object-center"
+          />
+        </div>
+        <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-[#1a1511]/90" />
+        <div className="relative z-10 max-w-360 mx-auto w-full grow flex flex-col justify-center">
+          <div className="flex items-center gap-4 mb-4 md:mb-6">
+            <div className="w-8 h-px bg-white"></div>
+            <span className="text-white text-xs font-bold tracking-[0.3em] uppercase">
+              Lima · Perú · 2026
             </span>
           </div>
 
           <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] lg:text-[7rem] leading-none font-bold text-white tracking-tighter mb-6 sm:mb-10">
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold text-white tracking-tighter leading-[0.85] mb-6 md:mb-10">
             LO <br />
             <span className="text-blue-600">BÁSICO,</span> <br />
             ELEVADO.
           </h1>
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6">
             <Link
               href="/catalog"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded font-bold text-sm tracking-wide transition-colors flex items-center gap-2"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 md:px-8 py-3 md:py-4 rounded font-bold text-sm tracking-wide transition-colors flex items-center gap-2"
             >
               EXPLORAR COLECCIÓN
               <svg
@@ -54,8 +74,37 @@ export default function HomePage() {
               </svg>
             </Link>
             <p className="text-gray-300 text-sm max-w-70 leading-relaxed">
+            <p className="text-gray-300 text-xs md:text-sm max-w-xs leading-relaxed hidden sm:block">
               Algodón pima peruano · Diseño contemporáneo · Hecho para Lima
             </p>
+          </div>
+        </div>
+        <div className="relative z-10 max-w-360 mx-auto w-full mt-4 md:mt-8">
+          <div className="border-t border-white/20 pt-6 grid grid-cols-3 gap-4 md:gap-8">
+            <div>
+              <p className="text-xl md:text-3xl font-bold text-white mb-1">
+                100%
+              </p>
+              <p className="text-gray-400 text-xs md:text-sm">
+                Algodón pima peruano
+              </p>
+            </div>
+            <div>
+              <p className="text-xl md:text-3xl font-bold text-white mb-1">
+                +500
+              </p>
+              <p className="text-gray-400 text-xs md:text-sm">
+                Clientes en Lima
+              </p>
+            </div>
+            <div>
+              <p className="text-xl md:text-3xl font-bold text-white mb-1">
+                48h
+              </p>
+              <p className="text-gray-400 text-xs md:text-sm">
+                Entrega express
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -113,14 +162,14 @@ export default function HomePage() {
       <section className="w-full bg-slate-50 py-24 px-6 lg:px-12">
         <div className="max-w-360 mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           <Link
-            href="/categoria/esenciales"
+            href="/catalog"
             className="group relative h-125 rounded-lg overflow-hidden bg-slate-900 block"
           >
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
               style={{
                 backgroundImage:
-                  "url('https://images.unsplash.com/photo-1529139574466-a303027c028b?q=80&w=800&auto=format&fit=crop')",
+                  "url('https://image.made-in-china.com/2f0j00AUFbPzVJwZoe/Wholesale-Custom-No-String-Hoodies-Blank-Various-Colored-100-Cotton-Men-Hoodie-Sweatshirts-Streetwear-Oversized-Cotton-Heavyweight-Plain-Hoody.webp')",
               }}
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
@@ -236,28 +285,44 @@ export default function HomePage() {
       <section className="w-full bg-slate-50 py-16 px-6 lg:px-12 border-t border-slate-200">
         <div className="max-w-360 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
-            <span className="text-2xl block mb-4">🌿</span>
+            <span className="text-2xl block mb-4">
+              <svg className="w-8 h-8">
+                <use href="/sprite.svg#leaf" />
+              </svg>
+            </span>
             <h4 className="font-bold text-slate-900 mb-2">Pima peruano</h4>
             <p className="text-sm text-slate-500 leading-relaxed">
               Algodón de origen controlado, suave y duradero.
             </p>
           </div>
           <div>
-            <span className="text-2xl block mb-4">📦</span>
+            <span className="text-2xl block mb-4">
+              <svg className="w-9 h-9">
+                <use href="/sprite.svg#box" />
+              </svg>
+            </span>
             <h4 className="font-bold text-slate-900 mb-2">Envío express</h4>
             <p className="text-sm text-slate-500 leading-relaxed">
               Entrega en 2–4 horas dentro de Lima metropolitana.
             </p>
           </div>
           <div>
-            <span className="text-2xl block mb-4">🔄</span>
+            <span className="text-2xl block mb-4">
+              <svg className="w-6 h-6">
+                <use href="/sprite.svg#exchange" />
+              </svg>
+            </span>
             <h4 className="font-bold text-slate-900 mb-2">Cambios gratis</h4>
             <p className="text-sm text-slate-500 leading-relaxed">
               Sin costo adicional durante 30 días desde tu compra.
             </p>
           </div>
           <div>
-            <span className="text-2xl block mb-4">🔒</span>
+            <span className="text-2xl block mb-4">
+              <svg className="w-9 h-9">
+                <use href="/sprite.svg#lock" />
+              </svg>
+            </span>
             <h4 className="font-bold text-slate-900 mb-2">Pago seguro</h4>
             <p className="text-sm text-slate-500 leading-relaxed">
               Transacciones protegidas vía PayPal.
@@ -274,7 +339,7 @@ export default function HomePage() {
               NUEVA TEMPORADA
             </span>
             <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tight leading-tight">
-              Invierno 2024 <br /> ya disponible.
+              Invierno 2026 <br /> ya disponible.
             </h2>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">

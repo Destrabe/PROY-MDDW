@@ -63,8 +63,7 @@ export default function OfertasPage() {
       oldPrice: 119,
       badge: "NUEVO",
       colors: ["#ffffff", "#000000", "#d8c8b8"],
-      image:
-        "https://images.unsplash.com/photo-1529139574466-a303027c028b?q=80&w=600&auto=format&fit=crop",
+      image: "/lime_hoodie.webp",
     },
     {
       id: 6,
@@ -74,8 +73,7 @@ export default function OfertasPage() {
       oldPrice: 279,
       badge: "NUEVO",
       colors: ["#1a1a1a", "#4a5d23", "#2c3e50"],
-      image:
-        "https://images.unsplash.com/photo-1520975954732-57dd22299614?q=80&w=600&auto=format&fit=crop",
+      image: "/jacket_miraflores.webp",
     },
   ];
 

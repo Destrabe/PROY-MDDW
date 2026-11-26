@@ -60,7 +60,7 @@ export default function ContactoPage() {
                   <h4 className="text-[11px] font-bold text-slate-500 tracking-wider uppercase mb-1">
                     Teléfono / WhatsApp
                   </h4>
-                  <p className="text-slate-800 font-medium">+51 991 234 567</p>
+                  <p className="text-slate-800 font-medium">+51 963 228 979</p>
                 </div>
               </div>
               <div className="flex items-start gap-5">
@@ -74,7 +74,7 @@ export default function ContactoPage() {
                     Correo Electrónico
                   </h4>
                   <p className="text-slate-800 font-medium">
-                    hola@limabasics.pe
+                    limabasics@gmail.com
                   </p>
                 </div>
               </div>
@@ -202,7 +202,7 @@ export default function ContactoPage() {
                 Enviar Mensaje
               </button>
               <p className="text-center text-xs text-slate-400 leading-relaxed px-4">
-                Al enviar aceptas nuestra{" "}
+                Al enviar aceptas nuestra
                 <a href="#" className="underline hover:text-slate-600">
                   Política de privacidad
                 </a>
