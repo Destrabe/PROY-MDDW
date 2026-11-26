@@ -1,390 +1,295 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 export default function HomePage() {
+  const [emailSuscripcion, setEmailSuscripcion] = useState("");
+  const [suscrito, setSuscrito] = useState(false);
+
+  const manejarSuscripcion = (e) => {
+    e.preventDefault();
+    if (!emailSuscripcion.trim()) return;
+    setSuscrito(true);
+    setEmailSuscripcion("");
+  };
+
   return (
-    <div className="flex flex-col min-h-screen w-full font-sans overflow-x-hidden">
-      {/* 1. HERO SECTION */}
-      <section className="relative w-full h-[calc(88dvh-3.5rem)] flex flex-col justify-center pt-20 sm:pt-24 pb-6 sm:pb-8 px-6 lg:px-12 bg-black overflow-hidden">
-        {/* Imagen de fondo */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=2000&auto=format&fit=crop')",
-          }}
-        />
+    <div className="bg-gray-50 text-gray-900 font-sans antialiased flex flex-col min-h-screen">
+      {/* <Header /> */}
 
-        {/* Gradiente oscuro de izquierda a derecha */}
-        <div className="absolute inset-0 bg-linear-to-r from-[#0f0f0f] via-black/60 to-transparent" />
-
-        {/* Contenedor del texto */}
-        <div className="relative z-10 max-w-360 mx-auto w-full">
-          <div className="flex items-center gap-4 mb-4 sm:mb-6">
-            <div className="w-10 h-px bg-blue-600"></div>
-            <span className="text-blue-600 text-xs font-bold tracking-[0.3em] uppercase">
-              Lima · Perú · 2024
-    <div className="flex flex-col min-h-screen w-full font-sans">
-      <section className="relative w-full h-[calc(100vh-56px)] flex flex-col justify-between py-8 md:py-12 px-6 lg:px-12 bg-black overflow-hidden">
-        <div className="absolute inset-0 opacity-60 overflow-hidden">
-          <Image
-            src="/main.webp"
-            alt="Fondo principal Lima Basics"
-            fill
-            priority
-            className="object-cover object-center"
+      <main className="grow">
+        {/* ================= HERO PRINCIPAL ================= */}
+        <section className="relative w-full min-h-[calc(100dvh-65px)] lg:min-h-[calc(100dvh-71px)] bg-gray-900 flex items-center py-12">
+          <img
+            src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+            alt="Lima Basics Hero"
+            className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay"
           />
-        </div>
-        <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-[#1a1511]/90" />
-        <div className="relative z-10 max-w-360 mx-auto w-full grow flex flex-col justify-center">
-          <div className="flex items-center gap-4 mb-4 md:mb-6">
-            <div className="w-8 h-px bg-white"></div>
-            <span className="text-white text-xs font-bold tracking-[0.3em] uppercase">
-              Lima · Perú · 2026
-            </span>
-          </div>
 
-          <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] lg:text-[7rem] leading-none font-bold text-white tracking-tighter mb-6 sm:mb-10">
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold text-white tracking-tighter leading-[0.85] mb-6 md:mb-10">
-            LO <br />
-            <span className="text-blue-600">BÁSICO,</span> <br />
-            ELEVADO.
-          </h1>
+          <div className="relative z-10 px-6 md:px-12 w-full max-w-7xl mx-auto">
+            <div className="flex items-center space-x-4 mb-6">
+              <div className="w-12 h-0.5 bg-white"></div>
+              <span className="text-white font-semibold tracking-[0.2em] text-sm">
+                LIMA · PERÚ · 2026
+              </span>
+            </div>
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6">
-            <Link
-              href="/catalog"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 md:px-8 py-3 md:py-4 rounded font-bold text-sm tracking-wide transition-colors flex items-center gap-2"
-            >
-              EXPLORAR COLECCIÓN
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                ></path>
-              </svg>
-            </Link>
-            <p className="text-gray-300 text-sm max-w-70 leading-relaxed">
-            <p className="text-gray-300 text-xs md:text-sm max-w-xs leading-relaxed hidden sm:block">
-              Algodón pima peruano · Diseño contemporáneo · Hecho para Lima
-            </p>
-          </div>
-        </div>
-        <div className="relative z-10 max-w-360 mx-auto w-full mt-4 md:mt-8">
-          <div className="border-t border-white/20 pt-6 grid grid-cols-3 gap-4 md:gap-8">
-            <div>
-              <p className="text-xl md:text-3xl font-bold text-white mb-1">
-                100%
-              </p>
-              <p className="text-gray-400 text-xs md:text-sm">
-                Algodón pima peruano
-              </p>
-            </div>
-            <div>
-              <p className="text-xl md:text-3xl font-bold text-white mb-1">
-                +500
-              </p>
-              <p className="text-gray-400 text-xs md:text-sm">
-                Clientes en Lima
-              </p>
-            </div>
-            <div>
-              <p className="text-xl md:text-3xl font-bold text-white mb-1">
-                48h
-              </p>
-              <p className="text-gray-400 text-xs md:text-sm">
-                Entrega express
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+            <h1 className="text-white font-black uppercase leading-[0.85] tracking-tighter mb-8 text-[3.5rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem]">
+              <span className="block text-blue-600">LO BÁSICO,</span>
+              <span className="block">ELEVADO.</span>
+            </h1>
 
-      {/* 2. NUESTRA FILOSOFÍA (Aquí comienza la franja blanca inferior) */}
-      <section className="w-full bg-white py-24 px-6 lg:px-12">
-        <div className="max-w-360 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <span className="text-blue-600 text-[11px] font-bold tracking-[0.2em] uppercase mb-6 block">
-              Nuestra Filosofía
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight leading-tight">
-              Ropa pensada <br />
-              para el ritmo <br />
-              <span className="text-blue-600">de Lima.</span>
-            </h2>
-          </div>
-          <div className="space-y-6 text-lg">
-            <p className="text-slate-700 font-medium leading-relaxed">
-              Lima Basics nace de entender que la moda urbana local necesita su
-              propia identidad. No seguimos tendencias importadas — construimos
-              las nuestras desde el centro histórico hasta Miraflores.
-            </p>
-            <p className="text-slate-500 text-base leading-relaxed">
-              Cada pieza está confeccionada con algodón pima peruano de primera
-              calidad, diseñada para durar y adaptarse a los distintos momentos
-              del día limeño.
-            </p>
-            <div className="pt-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mt-8">
               <Link
                 href="/catalog"
-                className="inline-flex items-center gap-2 text-slate-900 font-bold border-b-2 border-slate-900 pb-1 hover:text-blue-600 hover:border-blue-600 transition-colors"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 flex items-center transition-all rounded-sm"
               >
-                Ver el catálogo completo
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                EXPLORAR COLECCIÓN <i className="fas fa-arrow-right ml-3"></i>
+              </Link>
+              <p className="text-gray-300 text-sm max-w-xs border-l border-gray-600 pl-4">
+                Algodón pima peruano · Diseño contemporáneo · Hecho para Lima
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ================= NUESTRA FILOSOFÍA ================= */}
+        <section className="max-w-7xl mx-auto px-6 md:px-12 py-24 bg-white">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <span className="text-blue-600 text-xs font-bold tracking-widest uppercase mb-4 block">
+                Nuestra filosofía
+              </span>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight">
+                Ropa pensada
+                <br />
+                para el ritmo
+                <br />
+                <span className="text-blue-600">de Lima.</span>
+              </h2>
+            </div>
+            <div className="space-y-6 text-gray-600">
+              <p className="text-xl font-medium text-gray-900 leading-relaxed">
+                Lima Basics nace de entender que la moda urbana local necesita
+                su propia identidad. No seguimos tendencias importadas —
+                construimos las nuestras desde el centro histórico hasta
+                Miraflores.
+              </p>
+              <p className="text-sm leading-relaxed text-gray-500">
+                Cada pieza está confeccionada con algodón pima peruano de
+                primera calidad, diseñada para durar y adaptarse a los
+                distintos momentos del día limeño.
+              </p>
+              <div className="pt-4">
+                <Link
+                  href="/catalog"
+                  className="inline-flex items-center font-bold text-gray-900 border-b-2 border-gray-900 pb-1 hover:text-blue-600 hover:border-blue-600 transition-colors"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  ></path>
-                </svg>
+                  Ver el catálogo completo
+                  <i className="fas fa-arrow-right ml-2 text-sm"></i>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ================= TARJETAS DE CATEGORÍAS ================= */}
+        <section className="max-w-7xl mx-auto px-6 md:px-12 pb-24 bg-white">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Categoría 1: Esenciales */}
+            <Link
+              href="/catalog"
+              className="relative group overflow-hidden bg-gray-100 aspect-4/5 rounded-sm cursor-pointer shadow-sm block"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Esenciales"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-[#0f1115]/90 via-[#0f1115]/20 to-transparent opacity-80"></div>
+              <div className="absolute bottom-0 left-0 p-8 w-full text-white">
+                <span className="text-[10px] font-bold tracking-widest uppercase mb-2 block">
+                  Categoría
+                </span>
+                <h3 className="text-3xl font-black tracking-tighter mb-1">
+                  Esenciales
+                </h3>
+                <p className="text-sm text-gray-300 mb-4">Polos · Tees · Básicos</p>
+                <span className="text-blue-400 font-bold text-xs tracking-widest uppercase group-hover:text-white transition-colors">
+                  Ver todo <i className="fas fa-arrow-right ml-1"></i>
+                </span>
+              </div>
+            </Link>
+
+            {/* Categoría 2: Outerwear */}
+            <Link
+              href="/catalog"
+              className="relative group overflow-hidden bg-gray-100 aspect-4/5 rounded-sm cursor-pointer shadow-sm block"
+            >
+              <span className="absolute top-4 right-4 bg-blue-600 text-white text-[10px] font-bold px-3 py-1 uppercase tracking-wider rounded-full z-10 shadow-md">
+                New
+              </span>
+              <img
+                src="https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Outerwear"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-[#0f1115]/90 via-[#0f1115]/20 to-transparent opacity-80"></div>
+              <div className="absolute bottom-0 left-0 p-8 w-full text-white">
+                <span className="text-[10px] font-bold tracking-widest uppercase mb-2 block">
+                  Categoría
+                </span>
+                <h3 className="text-3xl font-black tracking-tighter mb-1">
+                  Outerwear
+                </h3>
+                <p className="text-sm text-gray-300 mb-4">Chaquetas · Hoodies</p>
+                <span className="text-blue-400 font-bold text-xs tracking-widest uppercase group-hover:text-white transition-colors">
+                  Ver todo <i className="fas fa-arrow-right ml-1"></i>
+                </span>
+              </div>
+            </Link>
+
+            {/* Categoría 3: Bottoms */}
+            <Link
+              href="/catalog"
+              className="relative group overflow-hidden bg-gray-100 aspect-4/5 rounded-sm cursor-pointer shadow-sm block"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1517438476312-10d79c077509?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Bottoms"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-[#0f1115]/90 via-[#0f1115]/20 to-transparent opacity-80"></div>
+              <div className="absolute bottom-0 left-0 p-8 w-full text-white">
+                <span className="text-[10px] font-bold tracking-widest uppercase mb-2 block">
+                  Categoría
+                </span>
+                <h3 className="text-3xl font-black tracking-tighter mb-1">
+                  Bottoms
+                </h3>
+                <p className="text-sm text-gray-300 mb-4">
+                  Pantalones · Cargos · Shorts
+                </p>
+                <span className="text-blue-400 font-bold text-xs tracking-widest uppercase group-hover:text-white transition-colors">
+                  Ver todo <i className="fas fa-arrow-right ml-1"></i>
+                </span>
+              </div>
+            </Link>
+          </div>
+        </section>
+
+        {/* ================= BENEFICIOS DE MARCA ================= */}
+        <section className="border-y border-gray-200 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 py-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+              <div className="text-center md:text-left">
+                <i className="fas fa-leaf text-2xl mb-4 text-gray-900"></i>
+                <h4 className="font-bold mb-2">Pima peruano</h4>
+                <p className="text-sm text-gray-500">
+                  Algodón de origen controlado, suave y duradero.
+                </p>
+              </div>
+              <div className="text-center md:text-left">
+                <i className="fas fa-box text-2xl mb-4 text-gray-900"></i>
+                <h4 className="font-bold mb-2">Envío express</h4>
+                <p className="text-sm text-gray-500">
+                  Entrega en 2-4 horas dentro de Lima metropolitana.
+                </p>
+              </div>
+              <div className="text-center md:text-left">
+                <i className="fas fa-sync-alt text-2xl mb-4 text-gray-900"></i>
+                <h4 className="font-bold mb-2">Cambios gratis</h4>
+                <p className="text-sm text-gray-500">
+                  Sin costo adicional durante 30 días desde tu compra.
+                </p>
+              </div>
+              <div className="text-center md:text-left">
+                <i className="fas fa-lock text-2xl mb-4 text-gray-900"></i>
+                <h4 className="font-bold mb-2">Pago seguro</h4>
+                <p className="text-sm text-gray-500">
+                  Transacciones protegidas vía PayPal.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ================= BANNER TEMPORADA ================= */}
+        <section className="bg-[#0f1115] text-white py-24 px-6 md:px-12">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
+            <div className="mb-8 md:mb-0 text-center md:text-left">
+              <span className="text-blue-500 text-xs font-bold tracking-widest uppercase mb-3 block">
+                Nueva Temporada
+              </span>
+              <h2 className="text-5xl md:text-6xl font-black tracking-tighter leading-none">
+                Invierno 2026
+                <br />
+                ya disponible.
+              </h2>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+              <Link
+                href="/catalog"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-sm transition-colors text-center text-sm uppercase tracking-wider"
+              >
+                Ir al catálogo
+              </Link>
+              <Link
+                href="/offers"
+                className="bg-transparent border border-gray-700 hover:border-white text-white font-bold py-4 px-8 rounded-sm transition-colors text-center text-sm uppercase tracking-wider"
+              >
+                Ver ofertas
               </Link>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* 3. CATEGORÍAS */}
-      <section className="w-full bg-slate-50 py-24 px-6 lg:px-12">
-        <div className="max-w-360 mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Link
-            href="/catalog"
-            className="group relative h-125 rounded-lg overflow-hidden bg-slate-900 block"
-          >
-            <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-              style={{
-                backgroundImage:
-                  "url('https://image.made-in-china.com/2f0j00AUFbPzVJwZoe/Wholesale-Custom-No-String-Hoodies-Blank-Various-Colored-100-Cotton-Men-Hoodie-Sweatshirts-Streetwear-Oversized-Cotton-Heavyweight-Plain-Hoody.webp')",
-              }}
-            />
-            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-8 w-full">
-              <p className="text-gray-300 text-xs font-bold tracking-widest uppercase mb-2">
-                Categoría
-              </p>
-              <h3 className="text-3xl font-bold text-white mb-2">Esenciales</h3>
-              <p className="text-gray-400 text-sm mb-6">
-                Polos · Tees · Básicos
-              </p>
-              <span className="text-blue-500 font-bold text-sm flex items-center gap-2 group-hover:text-blue-400 transition-colors">
-                VER TODO
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  ></path>
-                </svg>
-              </span>
-            </div>
-          </Link>
-
-          <Link
-            href="/categoria/outerwear"
-            className="group relative h-125 rounded-lg overflow-hidden bg-slate-900 block"
-          >
-            <div className="absolute top-4 right-4 z-20 bg-blue-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-full tracking-wider">
-              NEW
-            </div>
-            <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-              style={{
-                backgroundImage:
-                  "url('https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=800&auto=format&fit=crop')",
-              }}
-            />
-            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-8 w-full">
-              <p className="text-gray-300 text-xs font-bold tracking-widest uppercase mb-2">
-                Categoría
-              </p>
-              <h3 className="text-3xl font-bold text-white mb-2">Outerwear</h3>
-              <p className="text-gray-400 text-sm mb-6">Chaquetas · Hoodies</p>
-              <span className="text-blue-500 font-bold text-sm flex items-center gap-2 group-hover:text-blue-400 transition-colors">
-                VER TODO
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  ></path>
-                </svg>
-              </span>
-            </div>
-          </Link>
-
-          <Link
-            href="/categoria/bottoms"
-            className="group relative h-125 rounded-lg overflow-hidden bg-slate-900 block"
-          >
-            <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-              style={{
-                backgroundImage:
-                  "url('https://images.unsplash.com/photo-1517423568366-8b83523034fd?q=80&w=800&auto=format&fit=crop')",
-              }}
-            />
-            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-8 w-full">
-              <p className="text-gray-300 text-xs font-bold tracking-widest uppercase mb-2">
-                Categoría
-              </p>
-              <h3 className="text-3xl font-bold text-white mb-2">Bottoms</h3>
-              <p className="text-gray-400 text-sm mb-6">
-                Pantalones · Cargos · Shorts
-              </p>
-              <span className="text-blue-500 font-bold text-sm flex items-center gap-2 group-hover:text-blue-400 transition-colors">
-                VER TODO
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  ></path>
-                </svg>
-              </span>
-            </div>
-          </Link>
-        </div>
-      </section>
-
-      {/* 4. BENEFICIOS */}
-      <section className="w-full bg-slate-50 py-16 px-6 lg:px-12 border-t border-slate-200">
-        <div className="max-w-360 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-          <div>
-            <span className="text-2xl block mb-4">
-              <svg className="w-8 h-8">
-                <use href="/sprite.svg#leaf" />
-              </svg>
+        {/* ================= NEWSLETTER ================= */}
+        <section className="bg-gray-100 py-24 px-6 text-center border-b border-gray-200">
+          <div className="max-w-xl mx-auto">
+            <span className="text-blue-600 text-xs font-bold tracking-widest uppercase mb-4 block">
+              Únete
             </span>
-            <h4 className="font-bold text-slate-900 mb-2">Pima peruano</h4>
-            <p className="text-sm text-slate-500 leading-relaxed">
-              Algodón de origen controlado, suave y duradero.
-            </p>
-          </div>
-          <div>
-            <span className="text-2xl block mb-4">
-              <svg className="w-9 h-9">
-                <use href="/sprite.svg#box" />
-              </svg>
-            </span>
-            <h4 className="font-bold text-slate-900 mb-2">Envío express</h4>
-            <p className="text-sm text-slate-500 leading-relaxed">
-              Entrega en 2–4 horas dentro de Lima metropolitana.
-            </p>
-          </div>
-          <div>
-            <span className="text-2xl block mb-4">
-              <svg className="w-6 h-6">
-                <use href="/sprite.svg#exchange" />
-              </svg>
-            </span>
-            <h4 className="font-bold text-slate-900 mb-2">Cambios gratis</h4>
-            <p className="text-sm text-slate-500 leading-relaxed">
-              Sin costo adicional durante 30 días desde tu compra.
-            </p>
-          </div>
-          <div>
-            <span className="text-2xl block mb-4">
-              <svg className="w-9 h-9">
-                <use href="/sprite.svg#lock" />
-              </svg>
-            </span>
-            <h4 className="font-bold text-slate-900 mb-2">Pago seguro</h4>
-            <p className="text-sm text-slate-500 leading-relaxed">
-              Transacciones protegidas vía PayPal.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. CTA INVIERNO */}
-      <section className="w-full bg-[#0B101B] py-24 px-6 lg:px-12">
-        <div className="max-w-360 mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
-          <div>
-            <span className="text-blue-600 text-[11px] font-bold tracking-[0.2em] uppercase mb-4 block">
-              NUEVA TEMPORADA
-            </span>
-            <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tight leading-tight">
-              Invierno 2026 <br /> ya disponible.
+            <h2 className="text-3xl font-black tracking-tighter mb-3">
+              Sé el primero en enterarte
             </h2>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
-            <Link
-              href="/catalog"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded font-bold text-sm tracking-wide transition-colors text-center"
-            >
-              IR AL CATÁLOGO
-            </Link>
-            <Link
-              href="/offers"
-              className="bg-transparent border border-white/20 hover:border-white hover:bg-white/5 text-white px-8 py-4 rounded font-bold text-sm tracking-wide transition-all text-center"
-            >
-              VER OFERTAS
-            </Link>
-          </div>
-        </div>
-      </section>
+            <p className="text-gray-500 mb-8 text-sm">
+              Lanzamientos, descuentos exclusivos y novedades. Sin spam.
+            </p>
 
-      {/* 6. NEWSLETTER */}
-      <section className="bg-[#f4f5f7] w-full py-24 px-6 flex flex-col items-center justify-center text-center">
-        <span className="text-xs font-semibold tracking-[0.2em] text-slate-400 mb-4 uppercase">
-          ÚNETE
-        </span>
-        <h2 className="text-3xl font-bold tracking-tight text-slate-900 mb-3">
-          Sé el primero en enterarte
-        </h2>
-        <p className="text-slate-500 text-sm mb-8">
-          Lanzamientos, descuentos exclusivos y novedades. Sin spam.
-        </p>
-        <form className="flex w-full max-w-md gap-2 mx-auto">
-          <input
-            type="email"
-            placeholder="tu@correo.pe"
-            className="w-full px-4 py-3 bg-white border border-slate-200 rounded focus:outline-none focus:border-slate-400 transition-colors text-sm text-slate-800"
-            required
-          />
-          <button
-            type="submit"
-            className="bg-[#0B101B] hover:bg-black text-white px-6 py-3 rounded font-bold tracking-wide transition-colors text-sm whitespace-nowrap"
-          >
-            Suscribirse
-          </button>
-        </form>
-      </section>
+            <form
+              onSubmit={manejarSuscripcion}
+              className="flex flex-col sm:flex-row w-full max-w-md mx-auto shadow-sm"
+            >
+              <input
+                type="email"
+                placeholder="tu@correo.pe"
+                value={emailSuscripcion}
+                onChange={(e) => setEmailSuscripcion(e.target.value)}
+                className="grower border-gray-300 px-4 py-3 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 rounded-t-sm sm:rounded-l-sm sm:rounded-tr-none text-sm bg-white"
+                required
+              />
+              <button
+                type="submit"
+                className="bg-[#0f1115] hover:bg-black text-white font-bold py-3 px-8 transition-colors rounded-b-sm sm:rounded-r-sm sm:rounded-bl-none text-sm"
+              >
+                Suscribirse
+              </button>
+            </form>
+
+            {suscrito && (
+              <p className="text-xs font-bold text-emerald-600 mt-3">
+                ¡Gracias por suscribirte! Pronto recibirás nuestras novedades.
+              </p>
+            )}
+          </div>
+        </section>
+      </main>
+
+      {/* <Footer /> */}
     </div>
   );
 }
