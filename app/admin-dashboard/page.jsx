@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Header from "@/components/header";
 
-// Datos de prueba (Mock Data) basados en la estructura de Java
 const MOCK_PRODUCTOS = [
   {
     id: 1,
@@ -14,7 +12,8 @@ const MOCK_PRODUCTOS = [
     etiqueta: "Más vendido",
     claseEtiqueta: "bg-blue-600",
     colores: ["bg-white", "bg-black", "bg-[#d2b48c]"],
-    imagen: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=80",
+    imagen:
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=80",
   },
   {
     id: 2,
@@ -25,7 +24,8 @@ const MOCK_PRODUCTOS = [
     etiqueta: "Nuevo",
     claseEtiqueta: "bg-emerald-600",
     colores: ["bg-black", "bg-[#374151]"],
-    imagen: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=200&q=80",
+    imagen:
+      "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=200&q=80",
   },
   {
     id: 3,
@@ -36,7 +36,8 @@ const MOCK_PRODUCTOS = [
     etiqueta: null,
     claseEtiqueta: "",
     colores: ["bg-[#4b5320]", "bg-black"],
-    imagen: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=200&q=80",
+    imagen:
+      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=200&q=80",
   },
 ];
 
@@ -63,7 +64,8 @@ const MOCK_PEDIDOS = [
         subtotal: 69.9,
         producto: {
           nombre: "Polo Boxy Fit Heavyweight",
-          imagen: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=80",
+          imagen:
+            "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=80",
         },
       },
       {
@@ -74,7 +76,8 @@ const MOCK_PEDIDOS = [
         subtotal: 149.0,
         producto: {
           nombre: "Hoodie Oversized Essential",
-          imagen: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=200&q=80",
+          imagen:
+            "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=200&q=80",
         },
       },
     ],
@@ -101,7 +104,8 @@ const MOCK_PEDIDOS = [
         subtotal: 129.9,
         producto: {
           nombre: "Cargo Pant Relaxed",
-          imagen: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=200&q=80",
+          imagen:
+            "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=200&q=80",
         },
       },
     ],
@@ -109,26 +113,34 @@ const MOCK_PEDIDOS = [
 ];
 
 const MOCK_USUARIOS = [
-  { id: 1, nombre: "Dajhana Huaccha", email: "admin@limabasics.pe", rol: "ADMIN" },
-  { id: 2, nombre: "Carlos Mendoza", email: "carlos.mendoza@correo.com", rol: "USER" },
-  { id: 3, nombre: "Valeria Torres", email: "valeria.t@correo.com", rol: "USER" },
+  {
+    id: 1,
+    nombre: "Dajhana Huaccha",
+    email: "admin@limabasics.pe",
+    rol: "ADMIN",
+  },
+  {
+    id: 2,
+    nombre: "Carlos Mendoza",
+    email: "carlos.mendoza@correo.com",
+    rol: "USER",
+  },
+  {
+    id: 3,
+    nombre: "Valeria Torres",
+    email: "valeria.t@correo.com",
+    rol: "USER",
+  },
 ];
 
 const SESION_ACTUAL_ID = 1;
 
 export default function AdminDashboardPage() {
-  // Estados principales de datos (Mock interactivo)
   const [productos, setProductos] = useState(MOCK_PRODUCTOS);
   const [pedidos, setPedidos] = useState(MOCK_PEDIDOS);
   const [usuarios, setUsuarios] = useState(MOCK_USUARIOS);
-
-  // Estado de navegación por pestañas
   const [activeTab, setActiveTab] = useState("productos");
-
-  // Estado para desplegar detalles de pedidos
   const [detallesAbiertos, setDetallesAbiertos] = useState({});
-
-  // Estados del Modal de Producto
   const [modalProductoAbierto, setModalProductoAbierto] = useState(false);
   const [productoEditandoId, setProductoEditandoId] = useState(null);
   const [formProducto, setFormProducto] = useState({
@@ -139,10 +151,12 @@ export default function AdminDashboardPage() {
     etiqueta: "",
     imagen: "",
   });
-  const [coloresActuales, setColoresActuales] = useState(["bg-white", "bg-black"]);
+  const [coloresActuales, setColoresActuales] = useState([
+    "bg-white",
+    "bg-black",
+  ]);
   const [colorHexInput, setColorHexInput] = useState("#000000");
 
-  // Estados del Modal de Usuario
   const [modalUsuarioAbierto, setModalUsuarioAbierto] = useState(false);
   const [formUsuario, setFormUsuario] = useState({
     id: null,
@@ -152,7 +166,6 @@ export default function AdminDashboardPage() {
     password: "",
   });
 
-  // --- FUNCIONES DE CONVERSIÓN DE COLORES ---
   const tailwindAHex = (clase) => {
     const limpia = clase.trim();
     if (limpia === "bg-white") return "#FFFFFF";
@@ -177,7 +190,6 @@ export default function AdminDashboardPage() {
     return "bg-gray-800";
   };
 
-  // --- HANDLERS DE PRODUCTOS ---
   const abrirModalCrearProducto = () => {
     setProductoEditandoId(null);
     setFormProducto({
@@ -242,7 +254,9 @@ export default function AdminDashboardPage() {
     };
 
     if (productoEditandoId) {
-      setProductos(productos.map((p) => (p.id === productoEditandoId ? nuevoObj : p)));
+      setProductos(
+        productos.map((p) => (p.id === productoEditandoId ? nuevoObj : p)),
+      );
     } else {
       setProductos([...productos, nuevoObj]);
     }
@@ -255,7 +269,6 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // --- HANDLERS DE PEDIDOS ---
   const toggleDetalle = (id) => {
     setDetallesAbiertos((prev) => ({
       ...prev,
@@ -265,11 +278,12 @@ export default function AdminDashboardPage() {
 
   const actualizarEstadoPedido = (id, nuevoEstado) => {
     setPedidos(
-      pedidos.map((ped) => (ped.id === id ? { ...ped, estado: nuevoEstado } : ped))
+      pedidos.map((ped) =>
+        ped.id === id ? { ...ped, estado: nuevoEstado } : ped,
+      ),
     );
   };
 
-  // --- HANDLERS DE USUARIOS ---
   const abrirModalEditarUsuario = (usuario) => {
     setFormUsuario({
       id: usuario.id,
@@ -292,8 +306,8 @@ export default function AdminDashboardPage() {
               email: formUsuario.email,
               rol: formUsuario.rol,
             }
-          : u
-      )
+          : u,
+      ),
     );
     setModalUsuarioAbierto(false);
   };
@@ -306,9 +320,6 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="bg-gray-50 text-gray-900 font-sans antialiased flex flex-col min-h-screen">
-      {/* <Header /> */}
-
-      {/* Banner Superior */}
       <div className="bg-[#0f1115] text-white pt-10 pb-12 px-4 sm:px-6 md:px-12 w-full">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
@@ -319,14 +330,13 @@ export default function AdminDashboardPage() {
               Dashboard Admin
             </h1>
             <p className="text-gray-400 text-sm max-w-md leading-relaxed">
-              Gestiona los pedidos de la tienda, actualiza los estados de envío y
-              administra la plataforma.
+              Gestiona los pedidos de la tienda, actualiza los estados de envío
+              y administra la plataforma.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Contenido Principal */}
       <main className="grow max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-10 w-full -mt-4">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
@@ -338,7 +348,6 @@ export default function AdminDashboardPage() {
             </h1>
           </div>
 
-          {/* Navegación por Tabs */}
           <div className="inline-flex bg-gray-200 p-1 rounded-xl">
             <button
               type="button"
@@ -349,7 +358,8 @@ export default function AdminDashboardPage() {
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
-              <i className="fas fa-box-open mr-2"></i>Productos ({productos.length})
+              <i className="fas fa-box-open mr-2"></i>Productos (
+              {productos.length})
             </button>
             <button
               type="button"
@@ -360,7 +370,8 @@ export default function AdminDashboardPage() {
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
-              <i className="fas fa-shopping-bag mr-2"></i>Pedidos ({pedidos.length})
+              <i className="fas fa-shopping-bag mr-2"></i>Pedidos (
+              {pedidos.length})
             </button>
             <button
               type="button"
@@ -376,7 +387,6 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        {/* ================= SECCIÓN PRODUCTOS ================= */}
         {activeTab === "productos" && (
           <section className="space-y-6">
             <div className="flex justify-between items-center bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
@@ -411,7 +421,10 @@ export default function AdminDashboardPage() {
                 </thead>
                 <tbody className="divide-y divide-gray-100 text-sm">
                   {productos.map((p) => (
-                    <tr key={p.id} className="hover:bg-gray-50 transition-colors">
+                    <tr
+                      key={p.id}
+                      className="hover:bg-gray-50 transition-colors"
+                    >
                       <td className="p-4 font-mono text-xs text-gray-400">
                         #{p.id}
                       </td>
@@ -490,15 +503,16 @@ export default function AdminDashboardPage() {
           </section>
         )}
 
-        {/* ================= SECCIÓN PEDIDOS ================= */}
         {activeTab === "pedidos" && (
           <section className="space-y-6">
             <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex justify-between items-center">
               <div>
-                <h2 className="font-bold text-lg">Gestión Avanzada de Pedidos</h2>
+                <h2 className="font-bold text-lg">
+                  Gestión Avanzada de Pedidos
+                </h2>
                 <p className="text-xs text-gray-500">
-                  Revisa los detalles de cada compra, los productos solicitados y
-                  actualiza el estado de envío.
+                  Revisa los detalles de cada compra, los productos solicitados
+                  y actualiza el estado de envío.
                 </p>
               </div>
             </div>
@@ -560,23 +574,25 @@ export default function AdminDashboardPage() {
                             </p>
 
                             <div className="flex items-center -space-x-2">
-                              {pedido.detalles.slice(0, 4).map((detalle, idx) =>
-                                detalle.producto.imagen ? (
-                                  <img
-                                    key={idx}
-                                    src={detalle.producto.imagen}
-                                    alt={detalle.producto.nombre}
-                                    className="inline-block w-9 h-9 rounded-full ring-2 ring-white object-cover border border-gray-100 bg-white"
-                                  />
-                                ) : (
-                                  <div
-                                    key={idx}
-                                    className="inline-flex w-9 h-9 rounded-full ring-2 ring-white bg-gray-200 items-center justify-center text-[10px]"
-                                  >
-                                    <i className="fas fa-tshirt text-gray-400"></i>
-                                  </div>
-                                )
-                              )}
+                              {pedido.detalles
+                                .slice(0, 4)
+                                .map((detalle, idx) =>
+                                  detalle.producto.imagen ? (
+                                    <img
+                                      key={idx}
+                                      src={detalle.producto.imagen}
+                                      alt={detalle.producto.nombre}
+                                      className="inline-block w-9 h-9 rounded-full ring-2 ring-white object-cover border border-gray-100 bg-white"
+                                    />
+                                  ) : (
+                                    <div
+                                      key={idx}
+                                      className="inline-flex w-9 h-9 rounded-full ring-2 ring-white bg-gray-200 items-center justify-center text-[10px]"
+                                    >
+                                      <i className="fas fa-tshirt text-gray-400"></i>
+                                    </div>
+                                  ),
+                                )}
                             </div>
                           </div>
                         </div>
@@ -586,7 +602,10 @@ export default function AdminDashboardPage() {
                             <select
                               value={pedido.estado}
                               onChange={(e) =>
-                                actualizarEstadoPedido(pedido.id, e.target.value)
+                                actualizarEstadoPedido(
+                                  pedido.id,
+                                  e.target.value,
+                                )
                               }
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-xs font-bold rounded-lg focus:ring-[#1d4ed8] focus:border-[#1d4ed8] block py-2 px-3 outline-none cursor-pointer grow lg:grow-0"
                             >
@@ -598,7 +617,9 @@ export default function AdminDashboardPage() {
                             <button
                               type="button"
                               onClick={() =>
-                                alert(`Estado de pedido LB-2026-0${pedido.id} actualizado`)
+                                alert(
+                                  `Estado de pedido LB-2026-0${pedido.id} actualizado`,
+                                )
                               }
                               className="bg-[#0f1115] hover:bg-black text-white font-bold py-2 px-4 rounded-lg text-xs transition-colors shadow-sm whitespace-nowrap"
                             >
@@ -622,7 +643,9 @@ export default function AdminDashboardPage() {
                               className="text-xs font-bold text-[#1d4ed8] flex items-center gap-1.5 hover:text-blue-800 transition-colors bg-blue-50 px-3 py-1.5 rounded-lg"
                             >
                               <span>
-                                {estaAbierto ? "Ocultar detalle" : "Ver detalle"}
+                                {estaAbierto
+                                  ? "Ocultar detalle"
+                                  : "Ver detalle"}
                               </span>
                               <i
                                 className={`fas fa-chevron-down text-[10px] transition-transform duration-300 ${
@@ -634,7 +657,6 @@ export default function AdminDashboardPage() {
                         </div>
                       </div>
 
-                      {/* Detalle Desplegable */}
                       {estaAbierto && (
                         <div className="bg-[#f8f9fc] border-t border-gray-100">
                           <div className="p-5 sm:p-6 border-b border-gray-100">
@@ -699,8 +721,8 @@ export default function AdminDashboardPage() {
                                   {pedido.costoEnvio === 0
                                     ? " (Gratis)"
                                     : pedido.costoEnvio != null
-                                    ? ` (S/ ${Number(pedido.costoEnvio).toFixed(2)})`
-                                    : " (S/ 8.00)"}
+                                      ? ` (S/ ${Number(pedido.costoEnvio).toFixed(2)})`
+                                      : " (S/ 8.00)"}
                                 </span>
                               </p>
                               <p className="text-xs text-gray-500 mt-1">
@@ -731,7 +753,6 @@ export default function AdminDashboardPage() {
           </section>
         )}
 
-        {/* ================= SECCIÓN USUARIOS ================= */}
         {activeTab === "usuarios" && (
           <section className="space-y-6">
             <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex justify-between items-center">
@@ -761,7 +782,10 @@ export default function AdminDashboardPage() {
                 </thead>
                 <tbody className="divide-y divide-gray-100 text-sm">
                   {usuarios.map((u) => (
-                    <tr key={u.id} className="hover:bg-gray-50 transition-colors">
+                    <tr
+                      key={u.id}
+                      className="hover:bg-gray-50 transition-colors"
+                    >
                       <td className="p-4 font-mono text-xs text-gray-400">
                         #{u.id}
                       </td>
@@ -822,7 +846,6 @@ export default function AdminDashboardPage() {
         )}
       </main>
 
-      {/* ================= MODAL CREAR / EDITAR PRODUCTO ================= */}
       {modalProductoAbierto && (
         <div className="fixed inset-0 z-100 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-[2px] px-4">
           <div className="bg-white rounded-2xl w-full max-w-lg p-7 relative shadow-2xl">
@@ -849,7 +872,10 @@ export default function AdminDashboardPage() {
                     required
                     value={formProducto.nombre}
                     onChange={(e) =>
-                      setFormProducto({ ...formProducto, nombre: e.target.value })
+                      setFormProducto({
+                        ...formProducto,
+                        nombre: e.target.value,
+                      })
                     }
                     className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm"
                   />
@@ -888,7 +914,10 @@ export default function AdminDashboardPage() {
                     required
                     value={formProducto.precio}
                     onChange={(e) =>
-                      setFormProducto({ ...formProducto, precio: e.target.value })
+                      setFormProducto({
+                        ...formProducto,
+                        precio: e.target.value,
+                      })
                     }
                     className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm"
                   />
@@ -1046,7 +1075,6 @@ export default function AdminDashboardPage() {
         </div>
       )}
 
-      {/* ================= MODAL EDITAR USUARIO ================= */}
       {modalUsuarioAbierto && (
         <div className="fixed inset-0 z-100 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-[2px] px-4">
           <div className="bg-white rounded-2xl w-full max-w-md p-7 relative shadow-2xl">
