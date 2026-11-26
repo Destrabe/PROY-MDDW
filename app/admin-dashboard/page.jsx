@@ -12,7 +12,8 @@ const MOCK_PRODUCTOS = [
     etiqueta: "Más vendido",
     claseEtiqueta: "bg-blue-600",
     colores: ["bg-white", "bg-black", "bg-[#d2b48c]"],
-    imagen: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=80",
+    imagen:
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=80",
   },
   {
     id: 2,
@@ -23,7 +24,8 @@ const MOCK_PRODUCTOS = [
     etiqueta: "Nuevo",
     claseEtiqueta: "bg-emerald-600",
     colores: ["bg-black", "bg-[#374151]"],
-    imagen: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=200&q=80",
+    imagen:
+      "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=200&q=80",
   },
   {
     id: 3,
@@ -34,7 +36,8 @@ const MOCK_PRODUCTOS = [
     etiqueta: null,
     claseEtiqueta: "",
     colores: ["bg-[#4b5320]", "bg-black"],
-    imagen: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=200&q=80",
+    imagen:
+      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=200&q=80",
   },
 ];
 
@@ -61,7 +64,8 @@ const MOCK_PEDIDOS = [
         subtotal: 69.9,
         producto: {
           nombre: "Polo Boxy Fit Heavyweight",
-          imagen: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=80",
+          imagen:
+            "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=80",
         },
       },
       {
@@ -72,7 +76,8 @@ const MOCK_PEDIDOS = [
         subtotal: 149.0,
         producto: {
           nombre: "Hoodie Oversized Essential",
-          imagen: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=200&q=80",
+          imagen:
+            "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=200&q=80",
         },
       },
     ],
@@ -99,7 +104,8 @@ const MOCK_PEDIDOS = [
         subtotal: 129.9,
         producto: {
           nombre: "Cargo Pant Relaxed",
-          imagen: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=200&q=80",
+          imagen:
+            "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=200&q=80",
         },
       },
     ],
@@ -107,9 +113,24 @@ const MOCK_PEDIDOS = [
 ];
 
 const MOCK_USUARIOS = [
-  { id: 1, nombre: "Dajhana Huaccha", email: "admin@limabasics.pe", rol: "ADMIN" },
-  { id: 2, nombre: "Carlos Mendoza", email: "carlos.mendoza@correo.com", rol: "USER" },
-  { id: 3, nombre: "Valeria Torres", email: "valeria.t@correo.com", rol: "USER" },
+  {
+    id: 1,
+    nombre: "Dajhana Huaccha",
+    email: "admin@limabasics.pe",
+    rol: "ADMIN",
+  },
+  {
+    id: 2,
+    nombre: "Carlos Mendoza",
+    email: "carlos.mendoza@correo.com",
+    rol: "USER",
+  },
+  {
+    id: 3,
+    nombre: "Valeria Torres",
+    email: "valeria.t@correo.com",
+    rol: "USER",
+  },
 ];
 
 const SESION_ACTUAL_ID = 1;
@@ -121,8 +142,6 @@ export default function AdminDashboardPage() {
 
   const [activeTab, setActiveTab] = useState("productos");
   const [detallesAbiertos, setDetallesAbiertos] = useState({});
-
-  // Estados del Modal de Producto
   const [modalProductoAbierto, setModalProductoAbierto] = useState(false);
   const [productoEditandoId, setProductoEditandoId] = useState(null);
   const [formProducto, setFormProducto] = useState({
@@ -132,14 +151,20 @@ export default function AdminDashboardPage() {
     precioAnterior: "",
     etiqueta: "",
   });
-  const [coloresActuales, setColoresActuales] = useState(["bg-white", "bg-black"]);
+  const [coloresActuales, setColoresActuales] = useState([
+    "bg-white",
+    "bg-black",
+  ]);
   const [colorHexInput, setColorHexInput] = useState("#000000");
 
   // Estados para subida de archivo de imagen
   const [imagenVistaPrevia, setImagenVistaPrevia] = useState("");
   const fileInputRef = useRef(null);
 
-  // Estados del Modal de Usuario
+  // Estados para subida de archivo de imagen
+  const [imagenVistaPrevia, setImagenVistaPrevia] = useState("");
+  const fileInputRef = useRef(null);
+
   const [modalUsuarioAbierto, setModalUsuarioAbierto] = useState(false);
   const [formUsuario, setFormUsuario] = useState({
     id: null,
@@ -192,7 +217,25 @@ export default function AdminDashboardPage() {
     procesarArchivoImagen(e.dataTransfer.files?.[0]);
   };
 
-  // --- HANDLERS DE PRODUCTOS ---
+  // --- HANDLERS DE IMAGEN ---
+  const procesarArchivoImagen = (archivo) => {
+    if (!archivo) return;
+    if (!archivo.type.startsWith("image/")) {
+      alert("Por favor selecciona un archivo de imagen válido (JPG, PNG, WEBP).");
+      return;
+    }
+    setImagenVistaPrevia(URL.createObjectURL(archivo));
+  };
+
+  const manejarSeleccionImagen = (e) => {
+    procesarArchivoImagen(e.target.files?.[0]);
+  };
+
+  const manejarSoltarImagen = (e) => {
+    e.preventDefault();
+    procesarArchivoImagen(e.dataTransfer.files?.[0]);
+  };
+
   const abrirModalCrearProducto = () => {
     setProductoEditandoId(null);
     setFormProducto({
@@ -277,7 +320,6 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // --- HANDLERS DE PEDIDOS ---
   const toggleDetalle = (id) => {
     setDetallesAbiertos((prev) => ({
       ...prev,
@@ -293,7 +335,6 @@ export default function AdminDashboardPage() {
     );
   };
 
-  // --- HANDLERS DE USUARIOS ---
   const abrirModalEditarUsuario = (usuario) => {
     setFormUsuario({
       id: usuario.id,
@@ -316,8 +357,8 @@ export default function AdminDashboardPage() {
               email: formUsuario.email,
               rol: formUsuario.rol,
             }
-          : u
-      )
+          : u,
+      ),
     );
     setModalUsuarioAbierto(false);
   };
@@ -341,8 +382,8 @@ export default function AdminDashboardPage() {
               Dashboard Admin
             </h1>
             <p className="text-gray-400 text-sm max-w-md leading-relaxed">
-              Gestiona los pedidos de la tienda, actualiza los estados de envío y
-              administra la plataforma.
+              Gestiona los pedidos de la tienda, actualiza los estados de envío
+              y administra la plataforma.
             </p>
           </div>
         </div>
@@ -370,7 +411,7 @@ export default function AdminDashboardPage() {
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
-              Productos ({productos.length})
+              <i className="fas fa-box-open mr-2"></i>Productos ({productos.length})
             </button>
             <button
               type="button"
@@ -397,7 +438,6 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        {/* ================= SECCIÓN PRODUCTOS ================= */}
         {activeTab === "productos" && (
           <section className="space-y-6">
             <div className="flex justify-between items-center bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
@@ -432,7 +472,10 @@ export default function AdminDashboardPage() {
                 </thead>
                 <tbody className="divide-y divide-gray-100 text-sm">
                   {productos.map((p) => (
-                    <tr key={p.id} className="hover:bg-gray-50 transition-colors">
+                    <tr
+                      key={p.id}
+                      className="hover:bg-gray-50 transition-colors"
+                    >
                       <td className="p-4 font-mono text-xs text-gray-400">
                         #{p.id}
                       </td>
@@ -511,7 +554,6 @@ export default function AdminDashboardPage() {
           </section>
         )}
 
-        {/* ================= SECCIÓN PEDIDOS ================= */}
         {activeTab === "pedidos" && (
           <section className="space-y-6">
             <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
@@ -546,28 +588,58 @@ export default function AdminDashboardPage() {
                         </p>
                       </div>
 
-                      <div className="flex items-center gap-3">
-                        <select
-                          value={pedido.estado}
-                          onChange={(e) =>
-                            actualizarEstadoPedido(pedido.id, e.target.value)
-                          }
-                          className="bg-gray-50 border border-gray-300 text-gray-900 text-xs font-bold rounded-lg py-2 px-3"
-                        >
-                          <option value="Confirmado">Confirmado</option>
-                          <option value="En camino">En camino</option>
-                          <option value="Entregado">Entregado</option>
-                          <option value="Cancelado">Cancelado</option>
-                        </select>
-                        <button
-                          type="button"
-                          onClick={() => toggleDetalle(pedido.id)}
-                          className="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-2 rounded-lg"
-                        >
-                          {estaAbierto ? "Ocultar detalle" : "Ver detalle"}
-                        </button>
+                        <div className="flex flex-col items-start lg:items-end justify-between border-t border-gray-100 lg:border-0 pt-4 lg:pt-0 gap-4 lg:gap-0 w-full lg:w-auto">
+                          <div className="flex items-center gap-2 w-full lg:w-auto">
+                            <select
+                              value={pedido.estado}
+                              onChange={(e) =>
+                                actualizarEstadoPedido(pedido.id, e.target.value)
+                              }
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-xs font-bold rounded-lg focus:ring-[#1d4ed8] focus:border-[#1d4ed8] block py-2 px-3 outline-none cursor-pointer grow lg:grow-0"
+                            >
+                              <option value="Confirmado">Confirmado</option>
+                              <option value="En camino">En camino</option>
+                              <option value="Entregado">Entregado</option>
+                              <option value="Cancelado">Cancelado</option>
+                            </select>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                alert(`Estado de pedido LB-2026-0${pedido.id} actualizado`)
+                              }
+                              className="bg-[#0f1115] hover:bg-black text-white font-bold py-2 px-4 rounded-lg text-xs transition-colors shadow-sm whitespace-nowrap"
+                            >
+                              Actualizar
+                            </button>
+                          </div>
+
+                          <div className="flex items-end justify-between w-full lg:w-auto lg:flex-col lg:items-end gap-2 mt-2">
+                            <div className="text-left lg:text-right">
+                              <span className="font-black text-xl text-gray-900 block">
+                                S/ {Number(pedido.total).toFixed(2)}
+                              </span>
+                              <span className="text-[10px] text-gray-400 uppercase tracking-wider block mt-0.5">
+                                Pagado vía Web
+                              </span>
+                            </div>
+
+                            <button
+                              type="button"
+                              onClick={() => toggleDetalle(pedido.id)}
+                              className="text-xs font-bold text-[#1d4ed8] flex items-center gap-1.5 hover:text-blue-800 transition-colors bg-blue-50 px-3 py-1.5 rounded-lg"
+                            >
+                              <span>
+                                {estaAbierto ? "Ocultar detalle" : "Ver detalle"}
+                              </span>
+                              <i
+                                className={`fas fa-chevron-down text-[10px] transition-transform duration-300 ${
+                                  estaAbierto ? "rotate-180" : "rotate-0"
+                                }`}
+                              ></i>
+                            </button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
 
                     {estaAbierto && (
                       <div className="p-5 bg-gray-50 border-t border-gray-100 text-xs text-gray-600 space-y-2">
@@ -592,54 +664,92 @@ export default function AdminDashboardPage() {
           </section>
         )}
 
-        {/* ================= SECCIÓN USUARIOS ================= */}
         {activeTab === "usuarios" && (
-          <section className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-gray-200 bg-gray-50 text-[11px] font-bold uppercase tracking-wider text-gray-500">
-                  <th className="p-4">ID</th>
-                  <th className="p-4">Usuario</th>
-                  <th className="p-4">Correo</th>
-                  <th className="p-4">Rol</th>
-                  <th className="p-4 text-right">Acciones</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 text-sm">
-                {usuarios.map((u) => (
-                  <tr key={u.id} className="hover:bg-gray-50">
-                    <td className="p-4 font-mono text-xs text-gray-400">
-                      #{u.id}
-                    </td>
-                    <td className="p-4 font-bold text-gray-900">{u.nombre}</td>
-                    <td className="p-4 text-gray-600">{u.email}</td>
-                    <td className="p-4">
-                      <span className="px-2.5 py-1 bg-blue-100 text-blue-700 font-bold text-xs rounded-full">
-                        {u.rol}
-                      </span>
-                    </td>
-                    <td className="p-4 text-right space-x-2">
-                      <button
-                        type="button"
-                        onClick={() => abrirModalEditarUsuario(u)}
-                        className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-bold"
-                      >
-                        Editar
-                      </button>
-                      {SESION_ACTUAL_ID !== u.id && (
+          <section className="space-y-6">
+            <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex justify-between items-center">
+              <div>
+                <h2 className="font-bold text-lg">Usuarios Registrados</h2>
+                <p className="text-xs text-gray-500">
+                  Visualiza las cuentas registradas, modifica sus datos/roles o
+                  da de baja usuarios.
+                </p>
+              </div>
+              <span className="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-lg font-medium hidden sm:block">
+                El registro de nuevas cuentas se realiza desde el formulario
+                público.
+              </span>
+            </div>
+
+            <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-gray-200 bg-gray-50 text-[11px] font-bold uppercase tracking-wider text-gray-500">
+                    <th className="p-4">ID</th>
+                    <th className="p-4">Usuario</th>
+                    <th className="p-4">Correo Electrónico</th>
+                    <th className="p-4">Rol</th>
+                    <th className="p-4 text-right">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100 text-sm">
+                  {usuarios.map((u) => (
+                    <tr key={u.id} className="hover:bg-gray-50 transition-colors">
+                      <td className="p-4 font-mono text-xs text-gray-400">
+                        #{u.id}
+                      </td>
+                      <td className="p-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-9 h-9 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center">
+                            <span>
+                              {u.nombre && u.nombre.length > 0
+                                ? u.nombre.charAt(0).toUpperCase()
+                                : "U"}
+                            </span>
+                          </div>
+                          <span className="font-bold text-gray-900">
+                            {u.nombre}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="p-4 text-gray-600">{u.email}</td>
+                      <td className="p-4">
+                        {u.rol === "ADMIN" ? (
+                          <span className="px-2.5 py-1 bg-blue-100 text-blue-700 font-bold text-xs rounded-full">
+                            ADMIN
+                          </span>
+                        ) : (
+                          <span className="px-2.5 py-1 bg-gray-100 text-gray-700 font-medium text-xs rounded-full">
+                            {u.rol}
+                          </span>
+                        )}
+                      </td>
+                      <td className="p-4 text-right space-x-2 whitespace-nowrap">
                         <button
                           type="button"
-                          onClick={() => eliminarUsuario(u.id)}
-                          className="px-3 py-1.5 bg-red-50 text-red-600 rounded-lg text-xs font-bold"
+                          onClick={() => abrirModalEditarUsuario(u)}
+                          className="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg text-xs font-bold transition-colors"
                         >
-                          Eliminar
+                          <i className="fas fa-user-pen mr-1"></i> Editar
                         </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                        {SESION_ACTUAL_ID !== u.id ? (
+                          <button
+                            type="button"
+                            onClick={() => eliminarUsuario(u.id)}
+                            className="px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg text-xs font-bold transition-colors"
+                          >
+                            <i className="fas fa-trash mr-1"></i> Eliminar
+                          </button>
+                        ) : (
+                          <span className="text-xs text-gray-400 italic px-2">
+                            Sesión actual
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </section>
         )}
       </main>
@@ -695,7 +805,10 @@ export default function AdminDashboardPage() {
                     required
                     value={formProducto.nombre}
                     onChange={(e) =>
-                      setFormProducto({ ...formProducto, nombre: e.target.value })
+                      setFormProducto({
+                        ...formProducto,
+                        nombre: e.target.value,
+                      })
                     }
                     className="w-full border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:border-blue-600"
                   />
@@ -735,7 +848,10 @@ export default function AdminDashboardPage() {
                     required
                     value={formProducto.precio}
                     onChange={(e) =>
-                      setFormProducto({ ...formProducto, precio: e.target.value })
+                      setFormProducto({
+                        ...formProducto,
+                        precio: e.target.value,
+                      })
                     }
                     className="w-full border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:border-blue-600"
                   />
@@ -951,7 +1067,6 @@ export default function AdminDashboardPage() {
         </div>
       )}
 
-      {/* ================= MODAL EDITAR USUARIO ================= */}
       {modalUsuarioAbierto && (
         <div
           onClick={() => setModalUsuarioAbierto(false)}
